@@ -185,30 +185,16 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="DataClassImplementations\AnunciosRepository.cs" />
-    <Compile Include="DataClassImplementations\ServiciosRepository.cs" />
-    <Compile Include="DataClassImplementations\LugaresRepository.cs" />
+    <Compile Include="DataClassImplementations\ReportesRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IServiciosRepository.cs" />
-    <Compile Include="Interfaces\IAnunciosRepository.cs" />
-    <Compile Include="Interfaces\ILugaresRepository.cs" />
+    <Compile Include="Interfaces\IReportesRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BModels\ChoferModel.cs" />
     <Compile Include="Models\BModels\CaaSContext.cs" />
-    <Compile Include="Models\BModels\ServiciosModel.cs" />
-    <Compile Include="Models\BModels\LugaresModel.cs" />
-    <Compile Include="Models\BModels\AnunciosModel.cs" />
-    <Compile Include="Models\BModels\ViajesModel.cs" />
-    <Compile Include="Models\BModels\CombisModel.cs" />
-    <Compile Include="Models\BVModels\AnunciosViewModels.cs" />
-    <Compile Include="Models\BVModels\DashboardViewModels.cs" />
-    <Compile Include="Models\BVModels\PanelViewModels.cs" />
-    <Compile Include="Models\BVModels\LugaresViewModels.cs" />
-    <Compile Include="Models\BVModels\ServiciosViewModels.cs" />
-    <Compile Include="Models\Dias.cs" />
+    <Compile Include="Models\BModels\ReporteModel.cs" />
+    <Compile Include="Models\BVModels\ReportesViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,6 +207,8 @@
     <Content Include="Content\Images\cut.png" />
     <Content Include="Content\Images\la_medalla.png" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\funsi.png" />
+    <Content Include="Content\ms.png" />
     <Content Include="Content\site.css" />
     <Content Include="Content\reset.css" />
     <Content Include="favicon.ico" />
@@ -274,13 +262,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Lugares\LugaresCreate.cshtml" />
-    <Content Include="Views\Admin\Lugares\LugaresView.cshtml" />
-    <Content Include="Views\Admin\Lugares\LugaresEdit.cshtml" />
-    <Content Include="Views\Admin\Anuncios\AnunciosCreate.cshtml" />
-    <Content Include="Views\Admin\Anuncios\AnunciosEdit.cshtml" />
-    <Content Include="Views\Admin\Anuncios\AnunciosView.cshtml" />
-    <Content Include="Views\Admin\Servicios\ServiciosCreate.cshtml" />
+    <Content Include="Views\Admin\Reportes\AnunciosCreate.cshtml" />
+    <Content Include="Views\Admin\Reportes\AnunciosEdit.cshtml" />
+    <Content Include="Views\Admin\Reportes\AnunciosView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

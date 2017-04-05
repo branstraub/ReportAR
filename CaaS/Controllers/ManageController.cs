@@ -309,26 +309,7 @@ namespace CaaS.Controllers
             });
         }
 
-        [HttpPost]
-        public async Task<ActionResult> EditAccountFromDashboard(DashboardViewModels model)
-        {
-
-            var id = User.Identity.GetUserId();
-            var user = UserManager.Users.FirstOrDefault(x => x.Id == id);
-
-            user.Address = model.User.Address;
-            user.FirstName = model.User.FirstName;
-            user.LastName = model.User.LastName;
-            user.Lote = model.User.Lote;
-            user.PhoneNumber = model.User.Phone;
-            user.Dni = model.User.Dni;
-            user.Dob = model.User.Dob;
-            user.Localidad = model.User.Localidad;
-
-            await UserManager.UpdateAsync(user);
-
-            return RedirectToAction("Index", "Home");
-        }
+      
 
         protected override void Dispose(bool disposing)
         {

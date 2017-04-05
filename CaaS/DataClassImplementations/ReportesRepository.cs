@@ -1,0 +1,109 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using CaaS.Interfaces;
+using CaaS.Models;
+using CaaS.Models.BVModels;
+
+namespace CaaS.DataClassImplementations
+{
+    public class ReportesRepository : IReportesRepository
+    {
+        public IEnumerable<ReporteModel> GetReportes()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var servicios = context.Reportes.ToArray();
+                return servicios;
+            }
+        }
+
+        public void CreateReporte(ReporteModel servicio)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                context.Reportes.Add(servicio);
+                context.SaveChanges();
+            }
+        }
+
+        public ReporteModel GetReporte(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var reporte = context.Reportes.FirstOrDefault(x => x.Id == id);
+                return reporte;
+            }
+        }
+
+        public void UpdateReporte(ReportesViewEditModel reporte)
+        {
+            ReporteModel reporteEntity;
+
+            using (var context = new ApplicationDbContext())
+            {
+                reporteEntity = context.Reportes.FirstOrDefault(x => x.Id == reporte.Id);
+            }
+
+            reporteEntity.Comentario = reporte.Comentario;
+           
+            using (var context = new ApplicationDbContext())
+            {
+                context.Entry(reporteEntity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void AsignarOng(string reporteId, string ongId)
+        {
+            ReporteModel reporteEntity;
+
+            using (var context = new ApplicationDbContext())
+            {
+                reporteEntity = context.Reportes.FirstOrDefault(x => x.Id == reporteId);
+            }
+
+            reporteEntity.OngAsignada = ongId;
+
+            using (var context = new ApplicationDbContext())
+            {
+                context.Entry(reporteEntity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteReporte(string id)
+        {
+
+          
+            using (var context = new ApplicationDbContext())
+            {
+                var reporteEntity = context.Reportes.FirstOrDefault(x => x.Id == id);
+                context.Entry(reporteEntity).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
+
+        }
+    }
+
+    public static class ReportesRepositoryExtensions
+    {
+        public static ReportesViewModel ServiciosToViewModel(this ReporteModel model)
+        {
+
+            return new ReportesViewModel
+            {
+                Id = model.Id,
+                OngAsignada = model.OngAsignada,
+                Comentario = model.Comentario,
+                DateReported = model.DateReported,
+                Desc = model.Desc,
+                ReportedBy = model.ReportedBy,
+                UrlPic = model.UrlPic
+            };
+        }
+        
+    }
+}

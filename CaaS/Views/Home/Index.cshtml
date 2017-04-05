@@ -1,4 +1,4 @@
-﻿@model CaaS.Models.BVModels.DashboardViewModels
+﻿
 @{
     Layout = "";
 }
@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>La Medalla Bus</title>
+    <title>ReportAR</title>
 
     <link href="https://fonts.googleapis.com/css?family=Muli:200,400,700,900" rel="stylesheet">
     <meta name="viewport" content="width=device-width, user-scalable=no">
@@ -16,173 +16,27 @@
 
 </head>
 <body>
-    <header class="full-width main-header subtle-shadow">
-        <div class="container-80 center container">
-            <h1>La Medalla Bus</h1>
-            <div class="profile-group">
-                <img src="~/Content/Images/cut.png" class="profile-image middle-top circular" alt="Profile image">
-                <span class="uppercase middle-top bold">Carolina Herrera</span>
-            </div>
+<header class="full-width main-header subtle-shadow">
+    <div class="container-80 center container">
+        <h1>ReportAR</h1>
+        <div class="profile-group">
+               
+            <span class="uppercase middle-top bold">Registrarse</span>
         </div>
-    </header>
-
-    <div class="container-80 center container dashboard-container">
-        <aside class="tickets">
-            <div class="max-height scrollbar-y">
-                <h2 class="section-title">Pasajes</h2>
-                <ul>
-                    <li class="ticket">
-                        <div class="location-text">
-                            <span class="uppercase sub">desde</span>
-                            <span class="location uppercase">nordelta</span>
-                        </div>
-
-                        <div class="location-text">
-                            <span class="uppercase sub">hasta</span>
-                            <span class="location uppercase">retiro <i class="small">x</i>2</span>
-                        </div>
-
-                        <div class="timetable">
-                            <span>Horario de salida: <span class="bold">7:15 AM</span></span>
-                            <span>Horario de llegada estimado: <span class="bold">9:15 AM</span></span>
-                            <button class="cancel-btn center subtle-borders button uppercase">cancelar</button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </aside>
-
-        <section id="dashboard">
-            <div class="alert subtle-borders">El servicio de charters se encuentra retrasado. Sepa disculpar las molestias.</div>
-
-            <div class="wide-container form-container subtle-borders">
-                <h2 class="section-title">Reservar un nuevo pasaje</h2>
-
-                <form action="/buy-ticket" method="post" id="ticket-form">
-
-                    <!-- <div class="form-field">
-                        <label class="uppercase block" for="from">desde</label>
-                        <input type="text" id="from" class="uppercase" placeholder="nordelta" name="from">
-                    </div> -->
-
-                    <div class="form-field">
-                        <label class="uppercase block" for="to">desde</label>
-                        <select name="from" id="from" class='uppercase'>
-                            <option value="nordelta" class='uppercase'>nordelta</option>
-                            <option value="retiro" class='uppercase'>retiro</option>
-                        </select>
-                    </div>
-
-
-                    <div class="form-field">
-                        <label class="uppercase block" for="to">hasta</label>
-                        <select name="to" id="to" class='uppercase'>
-                            <option value="nordelta" class='uppercase'>nordelta</option>
-                            <option value="retiro" class='uppercase'>retiro</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-field">
-                        <label class="uppercase block" for="date">para</label>
-                        <select name="date" id="date" class='uppercase'>
-                            <option value="915" class='uppercase'>HOY</option>
-                            <option value="945" class='uppercase'>El martes</option>
-                            <option value="1030" class='uppercase'>El miercoles</option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="uppercase block" for="time">a las</label>
-                        <select name="time" id="time" class='uppercase'>
-                            <option value="915" class='uppercase'>9:15 AM</option>
-                            <option value="945" class='uppercase'>9:45 AM</option>
-                            <option value="1030" class='uppercase'>10:30 AM</option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="uppercase block" for="passengers">para</label>
-                        <select name="passengers" id="passengers" class='uppercase'>
-                            <option value="1" class='uppercase'>1 pasajero</option>
-                            <option value="2" class='uppercase'>2 pasajeros</option>
-                            <option value="3" class='uppercase'>3 pasajeros</option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="uppercase block" for="name">aclaraciones</label>
-                        <input type="text" id="aclarations" class="uppercase" placeholder="bajo antes en ..." name="aclarations">
-                    </div>
-
-                    <div class="form-field">
-                        <button type="submit" id="sumbit" class="button uppercase subtle-borders subtle-shadow" name="sumbit">reservar pasajes</button>
-                    </div>
-
-                </form>
-            </div>
-
-            <div class="tall-container form-container subtle-borders">
-                <h2 class="section-title">Tu perfil</h2>
-              @using (Html.BeginForm("EditAccountFromDashboard", "Manage", FormMethod.Post, new {role = "form"}))
-              {
-                  @Html.AntiForgeryToken()
-                  <div class="form-field">
-                      <label class="uppercase block" for="name">Nombre</label>
-                      @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control uppercase" } })
-                      @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
-                  </div>
-
-                  <div class="form-field">
-                      <label class="uppercase block" for="name">Apellido</label>
-                      @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control uppercase" } })
-                      @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
-                </div>
-
-                  <div class="form-field">
-                      <label class="uppercase block" for="name">DNI/PASAPORTE</label>
-                     @Html.EditorFor(model => model.User.Dni, new { htmlAttributes = new { @class = "form-control uppercase" } })
-                    @Html.ValidationMessageFor(model => model.User.Dni, "", new { @class = "text-danger" })
-                  </div>
-
-                  <div class="form-field">
-                      <label class="uppercase block" for="name">Fecha de nacimiento</label>
-                     @Html.EditorFor(model => model.User.Dob, new { htmlAttributes = new { @class = "form-control uppercase" } })
-                    @Html.ValidationMessageFor(model => model.User.Dob, "", new { @class = "text-danger" })
-                  </div>
-
-                  <div class="form-field">
-                      <label class="uppercase block" for="name">Teléfono</label>
-                      @Html.EditorFor(model => model.User.Phone, new { htmlAttributes = new { @class = "form-control uppercase" } })
-                      @Html.ValidationMessageFor(model => model.User.Phone, "", new { @class = "text-danger" })
-                  </div>
-
-                  <div class="form-field">
-                      <label class="uppercase block" for="name">Localidad</label>
-                      @Html.EditorFor(model => model.User.Localidad, new { htmlAttributes = new { @class = "form-control uppercase" } })
-                      @Html.ValidationMessageFor(model => model.User.Localidad, "", new { @class = "text-danger" })
-                  </div>
-
-                  <div class="form-field">
-                      <label class="uppercase block" for="name">Dirección / Country</label>
-                      @Html.EditorFor(model => model.User.Address, new { htmlAttributes = new { @class = "form-control uppercase" } })
-                      @Html.ValidationMessageFor(model => model.User.Address, "", new { @class = "text-danger" })
-                  </div>
-
-                  <div class="form-field">
-                      <label class="uppercase block" for="name">Lote</label>
-                      @Html.EditorFor(model => model.User.Lote, new { htmlAttributes = new { @class = "form-control uppercase" } })
-                      @Html.ValidationMessageFor(model => model.User.Lote, "", new { @class = "text-danger" })
-                  </div>
-
-                  <div class="form-field">
-                      <button type="submit" id="submit" class="button uppercase subtle-borders subtle-shadow" name="sumbit">actualizar perfil</button>
-                  </div>
-
-              }
-            </div>
-
-        </section>
     </div>
+</header>
+    
+<footer class="full-width center">
+    <ul class="center">
+        <li>
+            <img src="~/Content/ms.png" height="50px">
+        </li>
+        <li>
+            <img src="~/Content/funsi.png" height="50px">
+        </li>
+
+    </ul>
+</footer>
 
 
 </body>

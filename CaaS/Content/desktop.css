@@ -15,6 +15,23 @@
 .text-center {
   text-align: center;
 }
+footer {
+    background-color: #DFE9ED;
+    position: fixed;
+    bottom: 0;
+}
+
+ul {
+    list-style-type: none;
+    /* margin: 0; */
+    /* padding: 0 25% 0 25%; */
+    overflow: hidden;
+    display: table;
+}
+
+li {
+    float: left;
+}
 
 .auto-width {
   width: auto !important;
