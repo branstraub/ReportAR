@@ -25,6 +25,8 @@ namespace CaaS.Models.BVModels
         public string Comentario { get; set; }
         [Display(Name = "Ong Asignada")]
         public string OngAsignada { get; set; }
+        [Display(Name = "Direccion")]
+        public string Direccion { get; set; }
 
     }
 

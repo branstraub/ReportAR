@@ -13,6 +13,9 @@ namespace CaaS.Models
         public string UrlPic { get; set; }
         public string Comentario { get; set; }
         public string OngAsignada { get; set; }
+        public double Latitud { get; set; }
+        public double Longitud { get; set; }
+        public string Direccion { get; set; }
 
     }
 
