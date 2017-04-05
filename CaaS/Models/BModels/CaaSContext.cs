@@ -9,6 +9,7 @@ namespace CaaS.Models
     public partial class ApplicationDbContext
     { 
         public DbSet<ReporteModel> Reportes { get; set; }
+        public DbSet<OngModel> Ongs { get; set; }
     }
 
 }

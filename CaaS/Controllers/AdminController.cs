@@ -15,41 +15,25 @@ using WebGrease.Css.Extensions;
 namespace CaaS.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    [Authorize]
+    [RequireHttps]
     public class AdminController : Controller
     {
-
-    
         private readonly IReportesRepository _reportesRepository;
-        private ApplicationUserManager _userManager;
-
-        public AdminController(IReportesRepository reportesRepository, ApplicationUserManager userManager)
-        {
-            _reportesRepository = reportesRepository;
-            UserManager = userManager;
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        private readonly IOngsRepository _ongsRepository;
 
         public AdminController()
         {
-
+            _reportesRepository = new ReportesRepository();
+            _ongsRepository = new OngsRepository();
         }
 
         // GET: Admin Reportes
         public ActionResult Index()
-        {   
-            return View(_reportesRepository.GetReportes());
+        {
+            var model = _reportesRepository.GetReportes();
+
+            return model.Count() != 0 ? View(model) : View("Empty");
         }
 
         // GET: Admin Reporte Detalle
@@ -77,11 +61,22 @@ namespace CaaS.Controllers
         public ActionResult AsignarOng(string id)
         {
             var ongid = User.Identity.GetUserId();
-            var user = UserManager.Users.FirstOrDefault(x => x.Id == id);
+            //var user = UserManager.Users.FirstOrDefault(x => x.Id == id);
             //getuserID
             
 
             _reportesRepository.AsignarOng(id, ongid);
+            return RedirectToAction("Index");
+        }
+
+        // POST: Admin Cerrar Reporte
+        [HttpPost]
+        public ActionResult CerrarReporte(string id)
+        {
+            //chequear que el que lo sea sea el usuario que lo abrio
+
+            
+            _reportesRepository.CerrarReporte(id);
             return RedirectToAction("Index");
         }
 

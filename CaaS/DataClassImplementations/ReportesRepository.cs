@@ -15,8 +15,8 @@ namespace CaaS.DataClassImplementations
         {
             using (var context = new ApplicationDbContext())
             {
-                var servicios = context.Reportes.ToArray();
-                return servicios;
+                var reportes = context.Reportes.ToArray();
+                return reportes;
             }
         }
 
@@ -85,6 +85,24 @@ namespace CaaS.DataClassImplementations
                 context.SaveChanges();
             }
 
+        }
+
+        public void CerrarReporte(string id)
+        {
+            ReporteModel reporteEntity;
+
+            using (var context = new ApplicationDbContext())
+            {
+                reporteEntity = context.Reportes.FirstOrDefault(x => x.Id == id);
+            }
+
+            reporteEntity.Estado = 1;
+
+            using (var context = new ApplicationDbContext())
+            {
+                context.Entry(reporteEntity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 

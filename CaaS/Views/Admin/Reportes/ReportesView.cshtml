@@ -1,8 +1,6 @@
-﻿@model IEnumerable<CaaS.Models.BVModels.AnunciosViewModel>
+﻿@model IEnumerable<CaaS.Models.BVModels.ReportesViewModel>
 
-<p>
-    @Html.ActionLink("Crear nuevo", "AnunciosCreate")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -23,8 +21,9 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Editar", "AnunciosEdit", new { id = item.Id }) |
-            @Html.ActionLink("Eliminar", "AnunciosDelete", new { id = item.Id }, new { onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
+            @Html.ActionLink("Asignar", "AnunciosEdit", new { id = item.Id }) |
+            @Html.ActionLink("Editar", "AnunciosEdit", new {id = item.Id}) |
+            @Html.ActionLink("Eliminar", "AnunciosDelete", new {id = item.Id}, new {onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');"})
         </td>
     </tr>
 }

@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
 
-    <title>La Medalla Bus</title>
+    <title>AbrigAR</title>
 
     <link href="https://fonts.googleapis.com/css?family=Muli:200,400,700,900" rel="stylesheet">
 
@@ -19,69 +19,22 @@
     <link rel="stylesheet" href="~/Content/login.css">
 </head>
 <body>
-    <h1 class="center block text-center login-title">La Medalla Bus</h1>
+    <h1 class="center block text-center login-title">AbrigAR</h1>
 
    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {@class = "login-form center subtle-borders", role = "form"}))
    {
        @Html.AntiForgeryToken()
        
-       <p class="paragraph center">Agrega tus datos y comenza a reservar pasajes de inmediato</p>
+       <p class="paragraph center">Registra a tu ONG y comenza a AbrigAR</p>
     @Html.ValidationSummary("", new { @class = "text-danger" })
        <br/>
        <div class="form-field">
            <label class="uppercase block" for="FirstName">Nombre</label>
-           @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control uppercase", placeholder = "Juana"})
-           @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+           @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control uppercase", placeholder = "Juana"})
+           @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
        </div>
 
-       <div class="form-field">
-           <label class="uppercase block" for="LastName">Apellido</label>
-           @Html.TextBoxFor(m => m.LastName, new { @class = "form-control uppercase", placeholder = "Martinez" })
-           @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
-       </div>
-
-       <div class="form-field">
-           <label class="uppercase block" for="Dni">DNI/PASAPORTE</label>
-           @Html.TextBoxFor(m => m.Dni, new { @class = "form-control uppercase", placeholder = "30.343.730" })
-           @Html.ValidationMessageFor(m => m.Dni, "", new { @class = "text-danger" })
-       </div>
-
-        <div class="form-field">
-            <label class="uppercase block" for="Dob">Fecha de nacimiento</label>
-            <input type="date" id="Dob" class="uppercase" placeholder="04/05/1995" name="Dob">
-            @Html.ValidationMessageFor(m => m.Dob, "", new { @class = "text-danger" })
-        </div>
-
-       <div class="form-field">
-           <label class="uppercase block" for="Email">Email</label>
-           @Html.TextBoxFor(m => m.Email, new { @class = "form-control uppercase", placeholder = "mail@dominio.com" }) 
-           @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-       </div>
-
-       <div class="form-field">
-           <label class="uppercase block" for="Phone">Telefono</label>
-           @Html.TextBoxFor(m => m.Phone, new { @class = "form-control uppercase", placeholder = "1144552233" })
-           @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
-       </div>
-
-       <div class="form-field">
-           <label class="uppercase block" for="Localidad">Localidad</label>
-           @Html.TextBoxFor(m => m.Localidad, new { @class = "form-control uppercase", placeholder = "Canning" })
-           @Html.ValidationMessageFor(m => m.Localidad, "", new { @class = "text-danger" })
-       </div>
-
-        <div class="form-field">
-            <label class="uppercase block" for="Address">Direccion / Country</label>
-            @Html.TextBoxFor(m => m.Address, new { @class = "form-control uppercase", placeholder = "Country Los Lagos" }) 
-            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-field">
-            <label class="uppercase block" for="Lote">Lote</label>
-            @Html.TextBoxFor(m => m.Lote, new { @class = "form-control uppercase", placeholder = "169" })
-            @Html.ValidationMessageFor(m => m.Lote, "", new { @class = "text-danger" })
-        </div>
-
+      
        <div class="form-field">
            <label class="uppercase block" for="Password">Contraseña</label>
            @Html.PasswordFor(m => m.Password, new { @class = "form-control uppercase" })
@@ -98,5 +51,18 @@
            <button type="submit" id="sumbit" class="button uppercase subtle-borders subtle-shadow register-btn" name="sumbit">registrarse</button>
        </div>
    }
+    
+    
+    <footer class="full-width center">
+        <ul class="center">
+            <li>
+                <img src="~/Content/ms.png" height="50px">
+            </li>
+            <li>
+                <img src="~/Content/funsi.png" height="50px">
+            </li>
+
+        </ul>
+    </footer>
 </body>
 </html>

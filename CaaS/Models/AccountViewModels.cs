@@ -10,7 +10,6 @@ namespace CaaS.Models
     {
         [Required]
         [Display(Name = "Nombre")]
-        [EmailAddress]
         public string Nombre { get; set; }
 
         [Required]
@@ -44,9 +43,8 @@ namespace CaaS.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "La contraseña debe ser al menos de {2} caracteres", MinimumLength = 6)]

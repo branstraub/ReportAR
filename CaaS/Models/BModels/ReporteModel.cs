@@ -16,6 +16,7 @@ namespace CaaS.Models
         public double Latitud { get; set; }
         public double Longitud { get; set; }
         public string Direccion { get; set; }
+        public int Estado { get; set; }
 
     }
 

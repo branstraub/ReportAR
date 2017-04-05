@@ -19,16 +19,6 @@ namespace CaaS.Models
             return userIdentity;
         }
 
-        public string Address { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Localidad { get; set; }
-        public string Lote { get; set; }
-        public string Dni { get; set; }
-        public DateTime Dob { get; set; }
-
-
-
     }
 
 

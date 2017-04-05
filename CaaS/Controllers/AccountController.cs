@@ -5,6 +5,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CaaS.DataClassImplementations;
+using CaaS.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -16,15 +18,18 @@ namespace CaaS.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly IOngsRepository _ongsRepository;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
+            _ongsRepository = new OngsRepository();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
+            _ongsRepository = new OngsRepository();
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -86,8 +91,6 @@ namespace CaaS.Controllers
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -114,21 +117,19 @@ namespace CaaS.Controllers
             {
                 var user = new ApplicationUser {
                     UserName = model.Nombre,
-                   
-
-                  
-                };
+                    LockoutEnabled = true,
+                    LockoutEndDateUtc = DateTime.UtcNow.AddYears(2)
+            };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    //TODO: mandar desde o365, activar tenant y comprar dominio
-
+                    _ongsRepository.CreateOng(new OngModel
+                    {
+                        Nombre = model.Nombre,
+                        Id = Guid.NewGuid().ToString()
+                    });
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

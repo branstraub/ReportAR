@@ -1,4 +1,6 @@
-﻿using Microsoft.Owin;
+﻿using CaaS.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(CaaS.Startup))]
@@ -9,6 +11,13 @@ namespace CaaS
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+          
         }
+
+      
+
+
+
+
     }
 }

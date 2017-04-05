@@ -20,10 +20,7 @@ namespace CaaS
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
-            //var composition = new CompositionContainer(catalog);
-            //IControllerFactory mefControllerFactory = new MefControllerFactory(composition);
-            //ControllerBuilder.Current.SetControllerFactory(mefControllerFactory);
+           
         }
     }
 }

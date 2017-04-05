@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
 
-    <title>La Medalla Bus</title>
+    <title>AbrigAR</title>
 
     <link href="https://fonts.googleapis.com/css?family=Muli:200,400,700,900" rel="stylesheet">
 
@@ -18,15 +18,15 @@
 
 </head>
 <body>
-    <h1 class="center block text-center login-title">La Medalla Bus</h1>
+    <h1 class="center block text-center login-title">AbrigAR</h1>
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = "dashboard" }, FormMethod.Post, new { @class = "login-form center subtle-borders", role = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary("", new { @class = "text-danger" })
-        <p class='paragraph center'>Ingresar al sistema de reserva de pasajes de La Medalla buses.</p>
+        <p class='paragraph center'>Ingresar al sistema AbrigAR</p>
         <div class="form-field">
-            <label class="uppercase block" for="user">Email</label>
-            <input type="text" id="Email" class="uppercase" placeholder="juan@gmail.com" name="Email">
+            <label class="uppercase block" for="nombre">Nombre</label>
+            <input type="text" id="Nombre" class="uppercase" placeholder="FundacioSi" name="Nombre">
         </div>
 
         <div class="form-field">
@@ -38,15 +38,21 @@
 
         <hr>
 
-        <p class="center paragraph">O a través de tus redes sociales</p>
-        <button type="button" id="fb_login" class="button uppercase subtle-borders subtle-shadow facebook-btn" name="fb_login">ingresar con facebook</button>
-
-        <hr>
-
         <p class="center paragraph">Si todavía no creaste tu cuenta, registrate en unos simples pasos.</p>
         <a href="/Account/Register">
             <button type="button" id="register" class="button uppercase subtle-borders subtle-shadow register-btn" name="register">registrarse</button>
         </a>
     }
+    <footer class="full-width center">
+        <ul class="center">
+            <li>
+                <img src="~/Content/ms.png" height="50px">
+            </li>
+            <li>
+                <img src="~/Content/funsi.png" height="50px">
+            </li>
+
+        </ul>
+    </footer>
 </body>
 </html>

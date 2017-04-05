@@ -19,51 +19,7 @@ using System.Net.Mime;
 
 namespace CaaS
 {
-    public class EmailService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your email service here to send an email.
-            return Sendmail(message);
-        }
-
-        async Task Sendmail(IdentityMessage message)
-        {
-            #region formatter
-
-            var text = $"Please click on this link to {message.Subject}: {message.Body}";
-            var html = "Please confirm your account by clicking this link: <a href=\"" + message.Body +
-                       "\">link</a><br/>";
-
-            html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + message.Body);
-
-            #endregion
-
-            var msg = new MailMessage {From = new MailAddress("b.straub@outlook.com")};
-            msg.To.Add(new MailAddress(message.Destination));
-            msg.Subject = message.Subject;
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
-
-            var smtpClient = new SmtpClient("smtp-mail.outlook.com", Convert.ToInt32(587));
-            var credentials = new NetworkCredential(ConfigurationManager.AppSettings["mailAccount"],
-                ConfigurationManager.AppSettings["password"]);
-            smtpClient.Credentials = credentials;
-            smtpClient.EnableSsl = true;
-            smtpClient.Send(msg);
-        }
-
-    }
-
-    public class SmsService : IIdentityMessageService
-        {
-            public Task SendAsync(IdentityMessage message)
-            {
-                // Plug in your SMS service here to send a text message.
-                return Task.FromResult(0);
-            }
-        }
-
+  
         // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
         public class ApplicationUserManager : UserManager<ApplicationUser>
         {
@@ -80,8 +36,8 @@ namespace CaaS
                 // Configure validation logic for usernames
                 manager.UserValidator = new UserValidator<ApplicationUser>(manager)
                 {
-                    AllowOnlyAlphanumericUserNames = false,
-                    RequireUniqueEmail = true
+                    AllowOnlyAlphanumericUserNames = true,
+                  
                 };
 
                 // Configure validation logic for passwords
@@ -99,19 +55,6 @@ namespace CaaS
                 manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
-                // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-                // You can write your own provider and plug it in here.
-                manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
-                {
-                    MessageFormat = "Your security code is {0}"
-                });
-                manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
-                {
-                    Subject = "Security Code",
-                    BodyFormat = "Your security code is {0}"
-                });
-                manager.EmailService = new EmailService();
-                manager.SmsService = new SmsService();
                 var dataProtectionProvider = options.DataProtectionProvider;
                 if (dataProtectionProvider != null)
                 {
