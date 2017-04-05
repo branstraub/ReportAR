@@ -1,0 +1,31 @@
+﻿@model CaaS.Models.IndexViewModel
+
+<h2>Administrar Cuenta</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Configura tus datos personales</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Contraseña:</dt>
+        <dd>
+            
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Cambiar Password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Crear password", "SetPassword")
+            }
+            
+        </dd>
+        <dt>Redes Sociales</dt>
+        <dd>
+            @Model.Logins.Count 
+            @Html.ActionLink("Manage", "ManageLogins") 
+        </dd>
+      
+       
+    </dl>
+</div>

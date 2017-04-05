@@ -1,0 +1,76 @@
+﻿@using Microsoft.Ajax.Utilities
+@model CaaS.Models.BVModels.PanelViewModels
+
+<div class="row">
+    <h2>Panel de Administración</h2>
+</div>
+
+<div class="row">
+    <h3>Servicios</h3>
+    
+    <p>
+        @Html.ActionLink("Crear nuevo", "ServiciosCreate")
+    </p>
+
+    <div class="col-md-8">Lunes</div>
+    <div class="col-md-8">Martes</div>
+    <div class="col-md-8">Miercoles</div>
+    <div class="col-md-8">Jueves</div>
+    <div class="col-md-8">Viernes</div>
+
+    <div class="col-md-8">Sabados</div>
+    <div class="col-md-8">Domingos</div>
+    <div class="col-md-8">Feriados</div>
+
+</div>
+
+<div class="row">
+    <h3>Lugares</h3>
+    @{
+        try
+        {
+            if (Model.Lugares.Count() != 0)
+            {
+                Html.RenderPartial("Lugares/LugaresView", model: Model.Lugares);
+            }
+            else
+            {
+                <div class="col-md-8">
+                    <h4>No hay lugares, cree uno @Html.ActionLink("aqui", "LugaresCreate")</h4>
+                </div>
+            }
+        }
+        catch (Exception e)
+        {
+            <div class="col-md-8">
+                <h4>No hay lugares, cree uno @Html.ActionLink("aqui", "LugaresCreate")</h4>
+            </div>
+        }
+    }
+</div>
+
+<div class="row">
+    <h3>Anuncios</h3>
+    @{
+        try
+        {
+            if (Model.Anuncios.Count() != 0)
+            {
+                Html.RenderPartial("Anuncios/AnunciosView", model: Model.Anuncios);
+            }
+            else
+            {
+                <div class="col-md-8">
+                    <h4>No hay anuncios, cree uno @Html.ActionLink("aqui", "AnunciosCreate")</h4>
+                </div>
+            }
+        }
+        catch (Exception e)
+        {
+            <div class="col-md-8">
+                <h4>No hay anuncios, cree uno @Html.ActionLink("aqui", "AnunciosCreate")</h4>
+            </div>
+        }
+    }
+</div>
+

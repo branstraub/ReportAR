@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <title>La Medalla Bus</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:200,400,700,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Content/reset.css">
+    <link rel="stylesheet" href="~/Content/desktop.css">
+    <link rel="stylesheet" href="~/Content/login.css">
+
+</head>
+<body>
+    <h1 class="center block text-center login-title">La Medalla Bus</h1>
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = "dashboard" }, FormMethod.Post, new { @class = "login-form center subtle-borders", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <p class='paragraph center'>Ingresar al sistema de reserva de pasajes de La Medalla buses.</p>
+        <div class="form-field">
+            <label class="uppercase block" for="user">Email</label>
+            <input type="text" id="Email" class="uppercase" placeholder="juan@gmail.com" name="Email">
+        </div>
+
+        <div class="form-field">
+            <label class="uppercase block" for="password">Contraseña</label>
+            <input type="password" id="Password" class="uppercase" placeholder="*******" name="Password">
+        </div>
+
+        <button type="submit" id="sumbit" class="button uppercase subtle-borders subtle-shadow" name="sumbit">ingresar</button>
+
+        <hr>
+
+        <p class="center paragraph">O a través de tus redes sociales</p>
+        <button type="button" id="fb_login" class="button uppercase subtle-borders subtle-shadow facebook-btn" name="fb_login">ingresar con facebook</button>
+
+        <hr>
+
+        <p class="center paragraph">Si todavía no creaste tu cuenta, registrate en unos simples pasos.</p>
+        <a href="/Account/Register">
+            <button type="button" id="register" class="button uppercase subtle-borders subtle-shadow register-btn" name="register">registrarse</button>
+        </a>
+    }
+</body>
+</html>

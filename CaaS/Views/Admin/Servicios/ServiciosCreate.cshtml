@@ -1,0 +1,183 @@
+﻿@model CaaS.Models.BVModels.ServiciosViewCreateModel
+
+<h2>Creacion de Servicio</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Ingrese los datos del servicio</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.HourOfDay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="time" name="HourOfDay" class="form-control" value="@Model.HourOfDay"/>
+                @Html.ValidationMessageFor(model => model.HourOfDay, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlaceOfDeparture, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PlaceOfDeparture, new SelectList(ViewBag.DestinosLista, "Value", "Text", 1))
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PlaceOfArrival, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PlaceOfArrival, new SelectList(ViewBag.DestinosLista, "Value", "Text", 1))
+        </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.DayOfWeek, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                <input type="hidden" id="Lunes_Input" name="DayOfWeek.Lunes" value="@Model.DayOfWeek.Lunes"/>
+                <div id="Lunes" class="btn @(Model.DayOfWeek.Lunes ? "btn-success" : "btn-default")">
+                    <span>Lunes</span>
+                </div>
+
+                <input type="hidden" id="Martes_Input" name="DayOfWeek.Martes" value="@Model.DayOfWeek.Martes"/>
+                <div id="Martes" class="btn @(Model.DayOfWeek.Martes ? "btn-success" : "btn-default")">
+                    <span>Martes</span>
+                </div>
+
+                <input type="hidden" id="Miercoles_Input" name="DayOfWeek.Miercoles" value="@Model.DayOfWeek.Miercoles"/>
+                <div id="Miercoles" class="btn @(Model.DayOfWeek.Miercoles ? "btn-success" : "btn-default")">
+                    <span>Miercoles</span>
+                </div>
+                
+                <input type="hidden" id="Jueves_Input" name="DayOfWeek.Jueves" value="@Model.DayOfWeek.Jueves" />
+                <div id="Jueves" class="btn @(Model.DayOfWeek.Jueves ? "btn-success" : "btn-default")">
+                    <span>Jueves</span>
+                </div>
+                
+                <input type="hidden" id="Viernes_Input" name="DayOfWeek.Viernes" value="@Model.DayOfWeek.Viernes" />
+                <div id="Viernes" class="btn @(Model.DayOfWeek.Viernes ? "btn-success" : "btn-default")">
+                    <span>Viernes</span>
+                </div>
+                
+                <input type="hidden" id="Sabado_Input" name="DayOfWeek.Sabado" value="@Model.DayOfWeek.Sabado" />
+                <div id="Sabado" class="btn @(Model.DayOfWeek.Sabado ? "btn-success" : "btn-default")">
+                    <span>Sabado</span>
+                </div>
+                
+                <input type="hidden" id="Domingo_Input" name="DayOfWeek.Domingo" value="@Model.DayOfWeek.Domingo" />
+                <div id="Domingo" class="btn @(Model.DayOfWeek.Domingo ? "btn-success" : "btn-default")">
+                    <span>Domingo</span>
+                </div>
+                
+                <input type="hidden" id="Feriado_Input" name="DayOfWeek.Feriado" value="@Model.DayOfWeek.Feriado" />
+                <div id="Feriado" class="btn @(Model.DayOfWeek.Feriado ? "btn-success" : "btn-default")">
+                    <span>Feriado</span>
+                </div>
+
+            </div>
+        </div>
+        
+        <br/>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver atras", "Index")
+</div>
+
+
+<script>
+    $("#Lunes").click(function(){
+    $( this ).toggleClass( "btn-default" );
+    $( this ).toggleClass( "btn-success" );
+
+    if ($( this ).is('.btn-success')) {
+        $("#Lunes_Input").val(true);
+    } else {
+        $("#Lunes_Input").val(false);
+    }
+    });
+
+    $("#Martes").click(function () {
+        $(this).toggleClass("btn-default");
+        $(this).toggleClass("btn-success");
+
+        if ($(this).is('.btn-success')) {
+            $("#Martes_Input").val(true);
+        } else {
+            $("#Martes_Input").val(false);
+        }
+    });
+    $("#Miercoles").click(function () {
+        $(this).toggleClass("btn-default");
+        $(this).toggleClass("btn-success");
+
+        if ($(this).is('.btn-success')) {
+            $("#Miercoles_Input").val(true);
+        } else {
+            $("#Miercoles_Input").val(false);
+        }
+    });
+
+    $("#Jueves").click(function () {
+        $(this).toggleClass("btn-default");
+        $(this).toggleClass("btn-success");
+
+        if ($(this).is('.btn-success')) {
+            $("#Jueves_Input").val(true);
+        } else {
+            $("#Jueves_Input").val(false);
+        }
+    });
+
+    $("#Viernes").click(function () {
+        $(this).toggleClass("btn-default");
+        $(this).toggleClass("btn-success");
+
+        if ($(this).is('.btn-success')) {
+            $("#Viernes_Input").val(true);
+        } else {
+            $("#Viernes_Input").val(false);
+        }
+    });
+
+    $("#Sabado").click(function () {
+        $(this).toggleClass("btn-default");
+        $(this).toggleClass("btn-success");
+
+        if ($(this).is('.btn-success')) {
+            $("#Sabado_Input").val(true);
+        } else {
+            $("#Sabado_Input").val(false);
+        }
+    });
+
+    $("#Domingo").click(function () {
+        $(this).toggleClass("btn-default");
+        $(this).toggleClass("btn-success");
+
+        if ($(this).is('.btn-success')) {
+            $("#Domingo_Input").val(true);
+        } else {
+            $("#Domingo_Input").val(false);
+        }
+    });
+
+    $("#Feriado").click(function () {
+        $(this).toggleClass("btn-default");
+        $(this).toggleClass("btn-success");
+
+        if ($(this).is('.btn-success')) {
+            $("#Feriado_Input").val(true);
+        } else {
+            $("#Feriado_Input").val(false);
+        }
+    });
+
+</script>

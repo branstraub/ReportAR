@@ -1,0 +1,46 @@
+.login-form {
+  display: block;
+  max-width: 400px;
+  width: 80%;
+  background-color: transparent;
+  border: 3px solid #356890;
+  padding: 20px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.login-title {
+  font-size: 40px;
+  margin-top: 80px;
+}
+
+.paragraph {
+  color: white;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 80%;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.paragraph:not(:first-child) {
+  padding-top: 0;
+}
+
+.facebook-btn {
+  background-color: #5c74b2;
+}
+
+.register-btn {
+  background-color: #f08558;
+}
+
+hr {
+  box-shadow: none;
+  border: none;
+  border-bottom: 3px solid #356890;
+  margin: 40px 0;
+
+}

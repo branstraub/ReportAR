@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CaaS.Models.BVModels.AnunciosViewModel>
+
+<p>
+    @Html.ActionLink("Crear nuevo", "AnunciosCreate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "AnunciosEdit", new { id = item.Id }) |
+            @Html.ActionLink("Eliminar", "AnunciosDelete", new { id = item.Id }, new { onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
+        </td>
+    </tr>
+}
+
+</table>
