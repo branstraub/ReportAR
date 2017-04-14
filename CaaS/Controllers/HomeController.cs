@@ -35,12 +35,12 @@ namespace CaaS.Controllers
 
         public ActionResult CreateIssue(ReporteCreateModel model)
         {
-            if (!ModelState.IsValid)
+            if (model.Descripcion == null || model.Id == null || model.Lat == null || model.Lon == null)
             {
-                return new HttpStatusCodeResult(402);
+                return new HttpStatusCodeResult(400);
             }
 
-            //Request.Files
+            var file = Request.Files[0];
 
             _reportesRepository.CreateReporte(new ReporteModel
             {
@@ -49,19 +49,19 @@ namespace CaaS.Controllers
                 DateReported = DateTime.Now,
                 Direccion = "null", //TODO: llamar a la api de geodecode
                 Estado = 0,
-                Latitud = model.Lat,
-                Longitud = model.Lon,
+                Latitud = (double) model.Lat,
+                Longitud = (double) model.Lon,
                 ReportedBy = model.Id,
                 UrlPic = "null", //TODO: ver donde pija la guardo
             });
 
-            return new HttpStatusCodeResult(200);
+            return new HttpStatusCodeResult(201);
         }
 
-        public ActionResult Getissues(string id)
+        public ActionResult GetIssues(string id)
         {
             var issues = _reportesRepository.GetReportes()
-                .Where(x => x.Id == id)
+                .Where(x => x.ReportedBy == id)
                 .Select(o => new
                 {
                     o.Comentario,
@@ -73,7 +73,7 @@ namespace CaaS.Controllers
 
             if (!issues.Any())
             {
-                return new HttpStatusCodeResult(402);
+                return new HttpStatusCodeResult(204);
             }
 
             return Json(issues, JsonRequestBehavior.AllowGet);
