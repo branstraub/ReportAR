@@ -40,5 +40,14 @@ namespace CaaS.Models.BVModels
        
     }
 
+    public class ReporteCreateModel
+    {
+        public string Descripcion { get; set; }
+      
+        public double Lat { get; set; }
+        public double Lon { get; set; }
+        public string Id { get; set; }
+    }
+
 
 }
