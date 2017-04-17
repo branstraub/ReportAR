@@ -232,9 +232,25 @@
   <ItemGroup>
     <Content Include="Content\base.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\ie8.css" />
+    <Content Include="Content\css\ie9.css" />
+    <Content Include="Content\css\images\intro.svg" />
+    <Content Include="Content\css\main.css" />
     <Content Include="Content\desktop.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Images\cut.png" />
+    <Content Include="Content\Images\fundacionsi.png" />
     <Content Include="Content\Images\la_medalla.png" />
+    <Content Include="Content\Images\mslogo.png" />
+    <Content Include="Content\js\ie\html5shiv.js" />
+    <Content Include="Content\js\ie\respond.min.js" />
+    <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\jquery.scrollex.min.js" />
+    <Content Include="Content\js\jquery.scrolly.min.js" />
+    <Content Include="Content\js\main.js" />
+    <Content Include="Content\js\skel.min.js" />
+    <Content Include="Content\js\util.js" />
     <Content Include="Content\login.css" />
     <Content Include="Content\funsi.png" />
     <Content Include="Content\ms.png" />
@@ -245,6 +261,37 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\sass\base\_page.scss" />
+    <Content Include="Content\sass\base\_typography.scss" />
+    <Content Include="Content\sass\components\_box.scss" />
+    <Content Include="Content\sass\components\_button.scss" />
+    <Content Include="Content\sass\components\_features.scss" />
+    <Content Include="Content\sass\components\_form.scss" />
+    <Content Include="Content\sass\components\_icon.scss" />
+    <Content Include="Content\sass\components\_image.scss" />
+    <Content Include="Content\sass\components\_list.scss" />
+    <Content Include="Content\sass\components\_section.scss" />
+    <Content Include="Content\sass\components\_split.scss" />
+    <Content Include="Content\sass\components\_spotlights.scss" />
+    <Content Include="Content\sass\components\_table.scss" />
+    <Content Include="Content\sass\components\_wrapper.scss" />
+    <Content Include="Content\sass\ie8.scss" />
+    <Content Include="Content\sass\ie9.scss" />
+    <Content Include="Content\sass\layout\_footer.scss" />
+    <Content Include="Content\sass\layout\_header.scss" />
+    <Content Include="Content\sass\layout\_intro.scss" />
+    <Content Include="Content\sass\layout\_sidebar.scss" />
+    <Content Include="Content\sass\layout\_wrapper.scss" />
+    <Content Include="Content\sass\libs\_functions.scss" />
+    <Content Include="Content\sass\libs\_mixins.scss" />
+    <Content Include="Content\sass\libs\_skel.scss" />
+    <Content Include="Content\sass\libs\_vars.scss" />
+    <Content Include="Content\sass\main.scss" />
     <None Include="Properties\PublishProfiles\reportar - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -306,7 +353,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1225</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
