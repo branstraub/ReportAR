@@ -327,6 +327,7 @@
     <Content Include="Views\Admin\Reportes\ReportesEdit.cshtml" />
     <Content Include="Views\Admin\Reportes\ReportesView.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Account\CreatedLocked.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

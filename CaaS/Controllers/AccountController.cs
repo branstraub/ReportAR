@@ -34,6 +34,12 @@ namespace CaaS.Controllers
             SignInManager = signInManager;
         }
 
+        [AllowAnonymous]
+        public ActionResult CreatedLocked()
+        {
+            return View();
+        }
+
         public ApplicationSignInManager SignInManager
         {
             get
@@ -123,14 +129,15 @@ namespace CaaS.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                   // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     _ongsRepository.CreateOng(new OngModel
                     {
                         Nombre = model.Nombre,
                         Id = Guid.NewGuid().ToString()
                     });
-                    return RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("CreatedLocked", "Account");
                 }
                 AddErrors(result);
             }
