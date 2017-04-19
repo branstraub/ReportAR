@@ -8,6 +8,12 @@ namespace CaaS.Models
     {
         public string Id { get; set; }
         public string Nombre { get; set; }
+        public string Telefono { get; set; }
+        public string Direccion { get; set; }
+        public string Mail { get; set; }
+        public string PicUrl { get; set; }
+        public string WebUrl { get; set; }
+        public string Mision { get; set; }
 
     }
 

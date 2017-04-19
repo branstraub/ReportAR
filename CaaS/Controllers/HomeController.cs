@@ -67,7 +67,8 @@ namespace CaaS.Controllers
                     o.Comentario,
                     o.DateReported,
                     o.Direccion,
-                    o.OngAsignada,
+                    OngAsignada = _ongsRepository.GetOngs()
+                    .FirstOrDefault(y => y.Id == o.OngAsignada).Nombre,
                  
                 });
 

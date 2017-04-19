@@ -28,6 +28,26 @@ namespace CaaS.Models
         public string Nombre { get; set; }
 
         [Required]
+        [Display(Name = "Direccion")]
+        public string Direccion { get; set; }
+
+        [Required]
+        [Display(Name = "Web Url")]
+        public string WebUrl { get; set; }
+
+        [Required]
+        [Display(Name = "Mision")]
+        public string Mision { get; set; }
+
+        [Required]
+        [Display(Name = "Telefono")]
+        public string Telefono { get; set; }
+
+        [Required]
+        [Display(Name = "Mail")]
+        public string Mail { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "La contraseña debe ser al menos de {2} caracteres", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
