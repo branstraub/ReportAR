@@ -58,10 +58,15 @@
            @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
        </div>
 
+       <div class="form-field">
+           <label class="uppercase block">Dirección web de la ONG</label>
+           @Html.TextBoxFor(m => m.WebUrl, new { @class = "form-control uppercase" })
+           @Html.ValidationMessageFor(m => m.WebUrl, "", new { @class = "text-danger" })
+       </div>
+
         <div class="form-field">
-            <label class="uppercase block">Dirección web de la ONG</label>
-            @Html.TextBoxFor(m => m.WebUrl, new { @class = "form-control uppercase" })
-            @Html.ValidationMessageFor(m => m.WebUrl, "", new { @class = "text-danger" })
+            <label class="uppercase block">Logo de laONG</label>
+            <input type="image" id="picOng" name="picOng"/>
         </div>
 
 

@@ -130,10 +130,16 @@ namespace CaaS.Controllers
                 if (result.Succeeded)
                 {
                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
+                   //todo: store pic if any
                     _ongsRepository.CreateOng(new OngModel
                     {
                         Nombre = model.Nombre,
+                        Direccion = model.Direccion,
+                        Mail = model.Mail,
+                        Mision = model.Mision,
+                        PicUrl = "null", //set pic url
+                        Telefono = model.Telefono,
+                        WebUrl = model.WebUrl,
                         Id = Guid.NewGuid().ToString()
                     });
 

@@ -26,12 +26,13 @@ namespace CaaS.Models
         [Required]
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }
-
-        [Required]
+        //TODO: validar espacios
+       
         [Display(Name = "Direccion")]
         public string Direccion { get; set; }
 
-        [Required]
+      
+        [DataType(DataType.Url)]
         [Display(Name = "Web Url")]
         public string WebUrl { get; set; }
 
@@ -40,10 +41,12 @@ namespace CaaS.Models
         public string Mision { get; set; }
 
         [Required]
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Telefono")]
         public string Telefono { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "Mail")]
         public string Mail { get; set; }
 
