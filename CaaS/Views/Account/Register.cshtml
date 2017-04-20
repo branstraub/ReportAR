@@ -66,11 +66,10 @@
 
         <div class="form-field">
             <label class="uppercase block">Logo de laONG</label>
-            <input type="image" id="picOng" name="picOng"/>
+            <input type="file" id="picOng" name="picOng"/>
         </div>
 
-
-       <div class="form-field">
+        <div class="form-field">
            <label class="uppercase block">Contraseña</label>
            @Html.PasswordFor(m => m.Password, new { @class = "form-control uppercase" })
            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })

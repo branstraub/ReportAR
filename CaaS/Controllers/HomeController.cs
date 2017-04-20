@@ -80,6 +80,30 @@ namespace CaaS.Controllers
             return Json(issues, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetOng(string id)
+        {
+            var ong = _ongsRepository.GetOng(id);
+
+            if (ong == null)
+            {
+                return new HttpStatusCodeResult(204);
+            }
+
+            return Json(ong, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetOngs()
+        {
+            var ongs = _ongsRepository.GetOngs();
+
+            if (!ongs.Any())
+            {
+                return new HttpStatusCodeResult(204);
+            }
+
+            return Json(ongs, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 
