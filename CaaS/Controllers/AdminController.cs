@@ -16,7 +16,6 @@ namespace CaaS.Controllers
 {
 
     [Authorize]
-    [RequireHttps]
     public class AdminController : Controller
     {
         private readonly IReportesRepository _reportesRepository;

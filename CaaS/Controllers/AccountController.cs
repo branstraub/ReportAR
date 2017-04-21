@@ -162,11 +162,14 @@ namespace CaaS.Controllers
                 {
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    using (var fileStream = model.OngPic.InputStream)
+                    if (model.OngPic != null)
                     {
-                        blockBlob.UploadFromStream(fileStream);
-                    }
 
+                        using (var fileStream = model.OngPic.InputStream)
+                        {
+                            blockBlob.UploadFromStream(fileStream);
+                        }
+                    }
                     _ongsRepository.CreateOng(new OngModel
                     {
                         Nombre = model.Nombre,
