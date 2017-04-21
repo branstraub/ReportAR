@@ -241,6 +241,7 @@
     <Compile Include="Models\BModels\CaaSContext.cs" />
     <Compile Include="Models\BModels\OngModel.cs" />
     <Compile Include="Models\BModels\ReporteModel.cs" />
+    <Compile Include="Models\BVModels\ContactoViewModel.cs" />
     <Compile Include="Models\BVModels\ReportesViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

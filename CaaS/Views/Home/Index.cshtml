@@ -2,6 +2,8 @@
 Layout = "";
 }
 
+@model CaaS.Models.BVModels.ContactoViewCreateModel
+
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -128,23 +130,27 @@ Layout = "";
                 <p>Contactanos para con nosotros para bla bla bla</p>
                 <div class="split style1">
                     <section>
-                        <form method="post" action="#">
-                            <div class="field half first">
-                                <label for="name">Nombre</label>
-                                <input type="text" name="name" id="name" />
-                            </div>
-                            <div class="field half">
-                                <label for="email">Email</label>
-                                <input type="text" name="email" id="email" />
-                            </div>
-                            <div class="field">
-                                <label for="message">Mensaje</label>
-                                <textarea name="message" id="message" rows="5"></textarea>
-                            </div>
-                            <ul class="actions">
-                                <li><a href="" class="button submit">Enviar</a></li>
-                            </ul>
-                        </form>
+                       @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new {role = "form"}))
+                       {
+                           <div class="field half first">
+                               <label>Nombre</label>
+                               @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+                               @Html.ValidationMessageFor(m => m.Name, "", new {@class = "text-danger"})
+                           </div>
+                           <div class="field half">
+                               <label>Email</label>
+                               @Html.TextBoxFor(m => m.Mail, new { @class = "form-control" })
+                               @Html.ValidationMessageFor(m => m.Mail, "", new { @class = "text-danger" })
+                           </div>
+                           <div class="field">
+                               <label>Mensaje</label>
+                               @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                               @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+                           </div>
+                           <ul class="actions">
+                               <li><a href="" class="button submit">Enviar</a></li>
+                           </ul>
+                       }
                     </section>
                     <section>
                         <ul class="contact">

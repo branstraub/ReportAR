@@ -67,8 +67,7 @@ namespace CaaS.Controllers
                     o.Comentario,
                     o.DateReported,
                     o.Direccion,
-                    OngAsignada = _ongsRepository.GetOngs()
-                    .FirstOrDefault(y => y.Id == o.OngAsignada).Nombre,
+                    OngAsignada = _ongsRepository.GetOng(o.OngAsignada).Nombre,
                  
                 });
 
@@ -102,6 +101,19 @@ namespace CaaS.Controllers
             }
 
             return Json(ongs, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Contact(ContactoViewCreateModel model) { 
+
+
+        if(!ModelState.IsValid)
+        {
+            return View("Index", model);
+        }
+
+        //todo: send message
+
+        return View("Index");
         }
 
 
