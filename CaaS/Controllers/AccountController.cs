@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +14,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CaaS.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace CaaS.Controllers
 {
@@ -119,8 +124,33 @@ namespace CaaS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
+                var urlpic = "";
+                CloudBlockBlob blockBlob = null;
+
+                if (model.OngPic != null && model.OngPic.IsImage())
+                {
+                    //persiste image
+                    //https://abrigarpics.blob.core.windows.net/ongslogo
+                    
+                    var storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=abrigarpics;AccountKey=cWkQ94z1J22ZCZ4AT+17nOjXUPmE48qhqJREN4RJhM8giIfzP6hjeSr7DKgOcmK6rJ+lplF+av1Dqt2mp72CHA==;EndpointSuffix=core.windows.net");
+                    var blobClient = storageAccount.CreateCloudBlobClient();
+                    var container = blobClient.GetContainerReference("ongslogo");
+
+                    urlpic = model.Nombre + "-" + Guid.NewGuid();
+
+                    blockBlob = container.GetBlockBlobReference(urlpic);
+
+                   
+                }
+                else if (model.OngPic != null && !model.OngPic.IsImage())
+                {
+                    ModelState.AddModelError("OngPic", "La imagen no es correcta");
+                    return View(model);
+                }
+
                 var user = new ApplicationUser {
                     UserName = model.Nombre,
                     LockoutEnabled = true,
@@ -129,15 +159,20 @@ namespace CaaS.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                   // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                   //todo: store pic if any
+                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+                    using (var fileStream = model.OngPic.InputStream)
+                    {
+                        blockBlob.UploadFromStream(fileStream);
+                    }
+
                     _ongsRepository.CreateOng(new OngModel
                     {
                         Nombre = model.Nombre,
                         Direccion = model.Direccion,
                         Mail = model.Mail,
                         Mision = model.Mision,
-                        PicUrl = "null", //set pic url
+                        PicUrl = urlpic,
                         Telefono = model.Telefono,
                         WebUrl = model.WebUrl,
                         Id = Guid.NewGuid().ToString()
@@ -242,5 +277,88 @@ namespace CaaS.Controllers
             }
         }
         #endregion
+    }
+
+    public static class HttpPostedFileBaseExtensions
+    {
+        public const int ImageMinimumBytes = 512;
+
+        public static bool IsImage(this HttpPostedFileBase postedFile)
+        {
+            //-------------------------------------------
+            //  Check the image mime types
+            //-------------------------------------------
+            if (postedFile.ContentType.ToLower() != "image/jpg" &&
+                        postedFile.ContentType.ToLower() != "image/jpeg" &&
+                        postedFile.ContentType.ToLower() != "image/pjpeg" &&
+                        postedFile.ContentType.ToLower() != "image/gif" &&
+                        postedFile.ContentType.ToLower() != "image/x-png" &&
+                        postedFile.ContentType.ToLower() != "image/png")
+            {
+                return false;
+            }
+
+            //-------------------------------------------
+            //  Check the image extension
+            //-------------------------------------------
+            if (Path.GetExtension(postedFile.FileName).ToLower() != ".jpg"
+                && Path.GetExtension(postedFile.FileName).ToLower() != ".png"
+                && Path.GetExtension(postedFile.FileName).ToLower() != ".gif"
+                && Path.GetExtension(postedFile.FileName).ToLower() != ".jpeg")
+            {
+                return false;
+            }
+
+            //-------------------------------------------
+            //  Attempt to read the file and check the first bytes
+            //-------------------------------------------
+            try
+            {
+                if (!postedFile.InputStream.CanRead)
+                {
+                    return false;
+                }
+
+                if (postedFile.ContentLength < ImageMinimumBytes)
+                {
+                    return false;
+                }
+
+                byte[] buffer = new byte[512];
+                postedFile.InputStream.Read(buffer, 0, 512);
+                string content = System.Text.Encoding.UTF8.GetString(buffer);
+                if (Regex.IsMatch(content, @"<script|<html|<head|<title|<body|<pre|<table|<a\s+href|<img|<plaintext|<cross\-domain\-policy",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Multiline))
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            //-------------------------------------------
+            //  Try to instantiate new Bitmap, if .NET will throw exception
+            //  we can assume that it's not a valid image
+            //-------------------------------------------
+
+            try
+            {
+                using (var bitmap = new System.Drawing.Bitmap(postedFile.InputStream))
+                {
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                postedFile.InputStream.Position = 0;
+            }
+
+            return true;
+        }
     }
 }

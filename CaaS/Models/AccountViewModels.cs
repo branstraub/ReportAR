@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace CaaS.Models
 {
@@ -23,7 +24,7 @@ namespace CaaS.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "El campo nombre es obligatorio")]
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }
         //TODO: validar espacios
@@ -31,31 +32,34 @@ namespace CaaS.Models
         [Display(Name = "Direccion")]
         public string Direccion { get; set; }
 
-      
-        [DataType(DataType.Url)]
+        [Url(ErrorMessage = "La url no es correcta")]
         [Display(Name = "Web Url")]
         public string WebUrl { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo misión es obligatorio")]
         [Display(Name = "Mision")]
         public string Mision { get; set; }
 
-        [Required]
-        [DataType(DataType.PhoneNumber)]
-        [Display(Name = "Telefono")]
+        [Required(ErrorMessage = "El campo teléfono es obligatorio")]
+        [Phone(ErrorMessage = "El teléfono no es correcto")]
+        [Display(Name = "Teléfono")]
         public string Telefono { get; set; }
 
-        [Required]
-        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "El campo mail es obligatorio")]
+        [EmailAddress(ErrorMessage = "Dirección de email invalida")]
         [Display(Name = "Mail")]
         public string Mail { get; set; }
 
-        [Required]
+        [Display(Name = "Logo de la ONG")]
+        public HttpPostedFileBase OngPic { get; set; }
+
+        [Required(ErrorMessage = "El campo contraseña es obligatorio")]
         [StringLength(100, ErrorMessage = "La contraseña debe ser al menos de {2} caracteres", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "El campo confirmar contraseña es obligatorio")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar Contraseña")]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]

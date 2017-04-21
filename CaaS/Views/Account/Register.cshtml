@@ -19,18 +19,18 @@
     <link rel="stylesheet" href="~/Content/login.css">
 </head>
 <body>
-    <h1 class="center block text-center login-title">AbrigAR</h1>
 
-   @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {@class = "login-form center subtle-borders", role = "form"}))
+
+   @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {@class = "login-form center subtle-borders", role = "form", enctype = "multipart/form-data" }))
    {
        @Html.AntiForgeryToken()
        
        <p class="paragraph center">Registra a tu ONG y comenzá a AbrigAR</p>
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+         @Html.ValidationSummary("", new { @class = "text-danger" })
        <br/>
        <div class="form-field">
            <label class="uppercase block">Nombre de la ONG</label>
-           @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control uppercase", placeholder = "FundacionSi"})
+           @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control uppercase"})
            @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
        </div>
 
@@ -59,14 +59,15 @@
        </div>
 
        <div class="form-field">
-           <label class="uppercase block">Dirección web de la ONG</label>
+           <label class="uppercase block">Dirección web</label>
            @Html.TextBoxFor(m => m.WebUrl, new { @class = "form-control uppercase" })
            @Html.ValidationMessageFor(m => m.WebUrl, "", new { @class = "text-danger" })
        </div>
 
         <div class="form-field">
-            <label class="uppercase block">Logo de laONG</label>
-            <input type="file" id="picOng" name="picOng"/>
+            <label class="uppercase block">Logo</label>
+            <input type="file" id="OngPic" name="OngPic" accept="image/x-png,image/gif,image/jpeg" />
+            @Html.ValidationMessageFor(m => m.OngPic, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-field">
