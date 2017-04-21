@@ -15,6 +15,10 @@
 .text-center {
   text-align: center;
 }
+
+.text-danger {
+    color: red;
+}
 footer {
     background-color: #DFE9ED;
     position: fixed;

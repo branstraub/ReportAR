@@ -132,15 +132,14 @@ namespace CaaS.Controllers
 
                 if (model.OngPic != null && model.OngPic.IsImage())
                 {
-                    //persiste image
-                    //https://abrigarpics.blob.core.windows.net/ongslogo
+
+                   //todo: check image size
                     
                     var storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=abrigarpics;AccountKey=cWkQ94z1J22ZCZ4AT+17nOjXUPmE48qhqJREN4RJhM8giIfzP6hjeSr7DKgOcmK6rJ+lplF+av1Dqt2mp72CHA==;EndpointSuffix=core.windows.net");
                     var blobClient = storageAccount.CreateCloudBlobClient();
                     var container = blobClient.GetContainerReference("ongslogo");
 
                     urlpic = model.Nombre + "-" + Guid.NewGuid();
-
                     blockBlob = container.GetBlockBlobReference(urlpic);
 
                    
@@ -156,10 +155,12 @@ namespace CaaS.Controllers
                     LockoutEnabled = true,
                     LockoutEndDateUtc = DateTime.UtcNow.AddYears(2)
             };
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     using (var fileStream = model.OngPic.InputStream)
                     {
