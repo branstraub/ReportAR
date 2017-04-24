@@ -55,7 +55,7 @@ namespace CaaS.Controllers
                 var blobClient = storageAccount.CreateCloudBlobClient();
                 var container = blobClient.GetContainerReference("issuepic");
 
-                urlpic = model.Id + "-" + Guid.NewGuid();
+                urlpic = model.Id + "-" + Guid.NewGuid() + "." + file.FileName.Split('.')[1];
                 var blockBlob = container.GetBlockBlobReference(urlpic);
                 using (var fileStream = file.InputStream)
                 {
@@ -99,7 +99,7 @@ namespace CaaS.Controllers
                 Latitud = (double) model.Lat,
                 Longitud = (double) model.Lon,
                 ReportedBy = model.Id,
-                UrlPic = urlpic.Any()? urlpic : "", 
+                UrlPic = urlpic, 
             });
 
             return new HttpStatusCodeResult(201);

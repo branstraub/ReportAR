@@ -139,7 +139,7 @@ namespace CaaS.Controllers
                     var blobClient = storageAccount.CreateCloudBlobClient();
                     var container = blobClient.GetContainerReference("ongslogo");
 
-                    urlpic = model.Nombre + "-" + Guid.NewGuid();
+                    urlpic = model.Nombre + "-" + Guid.NewGuid() + "." + model.OngPic.FileName.Split('.')[1];
                     blockBlob = container.GetBlockBlobReference(urlpic);
 
                    
