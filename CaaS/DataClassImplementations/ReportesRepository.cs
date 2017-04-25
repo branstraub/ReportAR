@@ -108,7 +108,7 @@ namespace CaaS.DataClassImplementations
 
     public static class ReportesRepositoryExtensions
     {
-        public static ReportesViewModel ServiciosToViewModel(this ReporteModel model)
+        public static ReportesViewModel ReporteToViewModel(this ReporteModel model)
         {
 
             return new ReportesViewModel
@@ -119,7 +119,10 @@ namespace CaaS.DataClassImplementations
                 DateReported = model.DateReported,
                 Desc = model.Desc,
                 ReportedBy = model.ReportedBy,
-                UrlPic = model.UrlPic
+                UrlPic = model.UrlPic,
+                Latitud = model.Latitud.ToString(),
+                Longitud = model.Longitud.ToString(),
+                Direccion = model.Direccion
             };
         }
         

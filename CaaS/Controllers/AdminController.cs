@@ -55,9 +55,9 @@ namespace CaaS.Controllers
         }
 
         // GET: Admin Reporte Detalle
-        public ActionResult ViewDetailsReporte(string id)
+        public ActionResult ReportesViewDetails(string id)
         {
-            return View(_reportesRepository.GetReporte(id));
+            return View("Reportes/ReportesViewDetails",_reportesRepository.GetReporte(id).ReporteToViewModel());
         }
 
         // GET: Admin Reporte Detalle Edit

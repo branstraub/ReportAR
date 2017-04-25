@@ -1,0 +1,70 @@
+﻿@model CaaS.Models.BVModels.ReportesViewModel
+<script type='text/javascript'
+        src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap'
+        async defer></script>
+
+
+<h1 class="text-center">Ver detalles</h1>
+
+<div class="eledetalle">
+    <h2 style="margin-bottom: 10px" class="text-center">Fecha reportado</h2>
+    <h3 class="text-center">@Model.DateReported</h3>
+
+    <h2 style="margin-bottom: 10px" class="text-center">Descripción del reporte</h2>
+    <h3 class="text-center">@Model.Desc</h3>
+    
+    <h2 style="margin-bottom: 10px" class="text-center">Dirección</h2>
+    <h3 class="text-center">@Model.Direccion</h3>
+    
+    <h2 style="margin-bottom: 10px" class="text-center">Latitud</h2>
+    <h3 class="text-center">@Model.Latitud</h3>
+
+    <h2 style="margin-bottom: 10px" class="text-center">Longitud</h2>
+    <h3 class="text-center">@Model.Longitud</h3>
+    
+    <script>
+        function GetMap() {
+
+
+            var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                credentials: 'AvnNFjDsnWvQb6le63wIjKsNKdvu2PqntR1-vph6KkzXiAS2gj491wfkaoqinn1f',
+                center: new Microsoft.Maps.Location(@Model.Latitud.Replace(',','.'), @Model.Longitud.Replace(',', '.')),
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                zoom: 10
+            });
+
+            var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
+            map.entities.push(pushpin);
+        }
+    </script>
+    
+    <style>
+        #myMap {
+            position: relative;
+            width: 50%;
+            height: 400px;
+            padding: 0 25% 0 25%;
+        }
+    </style>
+
+    <h2 style="margin-bottom: 10px" class="text-center">Mapa</h2>
+    <div id="myMap"></div>
+    
+    <h2 style="margin-bottom: 10px" class="text-center">ONG Asignada</h2>
+    <h3 class="text-center">@Model.OngAsignada</h3>
+    
+    <h2 style="margin-bottom: 10px" class="text-center">Comentario de la ONG</h2>
+    <h3 class="text-center">@Model.Comentario</h3>
+    
+    <h2 style="margin-bottom: 10px" class="text-center">Id de caso</h2>
+    <h3 class="text-center">@Model.Id</h3>
+    
+    <h2 style="margin-bottom: 10px" class="text-center">Foto del caso</h2>
+    <img style="max-width: 500px;margin: 30px auto;padding: 0 25%;align-items: center;width: 50%;" src="https://abrigarpics.blob.core.windows.net/issuepic/@Model.UrlPic"/>
+</div>
+      
+
+<div>
+    @Html.ActionLink("Volver atrás", "Index",null, new { @style = "color:white; font-size: 25px; margin-left: 20px;", @class = "text-center" } )
+</div>
+

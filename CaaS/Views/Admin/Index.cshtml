@@ -5,7 +5,7 @@
     <h1>Panel de Administración</h1>
 </div>
 
-<iframe style="padding: 0 20% 0 20%;" width="933" height="700" src="https://msit.powerbi.com/view?r=eyJrIjoiNmVjMTAxYTYtMzgzOS00N2M3LWI5Y2YtNGE2ZjZjYzRiYzIwIiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9" frameborder="0" allowFullScreen="true"></iframe>
+<iframe style="padding: 0 10% 0 10%; width: 80%;" width="933" height="700" src="https://msit.powerbi.com/view?r=eyJrIjoiNmVjMTAxYTYtMzgzOS00N2M3LWI5Y2YtNGE2ZjZjYzRiYzIwIiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9" frameborder="0" allowFullScreen="true"></iframe>
 
 <div class="text-center row">
     <h1 class="titleh1">Casos sin asignar</h1>
@@ -35,9 +35,9 @@
                             @Html.DisplayFor(modelItem => item.Direccion)
                         </td>
                         <td>
-                            @Html.ActionLink("Detalles", "ReporteDetalles", new { id = item.Id }) |
-                            @Html.ActionLink("Asignar", "ReporteAsignar", new { id = item.Id }) |
-                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id }, new { onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
+                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white"}) |
+                            @Html.ActionLink("Asignar", "ReporteAsignar", new { id = item.Id }, new { @style = "color:white" }) |
+                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id },new { @style = "color:white", onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
                         </td>
                     </tr>
                 }
@@ -81,9 +81,9 @@
                             @Html.DisplayFor(modelItem => item.Direccion)
                         </td>
                         <td>
-                            @Html.ActionLink("Detalles", "ReporteDetalles", new { id = item.Id }) |
-                            @Html.ActionLink("Asignar", "ReporteAsignar", new { id = item.Id }) |
-                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id }, new { onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
+                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white" }) |
+                            @Html.ActionLink("Cerrar Caso", "ReporteCerrar", new { id = item.Id }, new { @style = "color:white" }) |
+                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id }, new { @style = "color:white", onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
                         </td>
                     </tr>
                 }
@@ -129,9 +129,8 @@
                             @Html.DisplayFor(modelItem => item.Direccion)
                         </td>
                         <td>
-                            @Html.ActionLink("Detalles", "ReporteDetalles", new { id = item.Id }) |
-                            @Html.ActionLink("Asignar", "ReporteAsignar", new { id = item.Id }) |
-                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id }, new { onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
+                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white" }) |
+                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id }, new { @style = "color:white", onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
                         </td>
                     </tr>
                 }

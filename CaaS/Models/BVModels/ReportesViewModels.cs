@@ -27,6 +27,10 @@ namespace CaaS.Models.BVModels
         public string OngAsignada { get; set; }
         [Display(Name = "Direccion")]
         public string Direccion { get; set; }
+        [Display(Name = "Longitud")]
+        public string Longitud { get; set; }
+        [Display(Name = "Latitud")]
+        public string Latitud { get; set; }
 
     }
 
