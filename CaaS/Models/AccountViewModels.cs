@@ -9,11 +9,11 @@ namespace CaaS.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "El campo nombre es obligatorio")]
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo contraseña es obligatorio")]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
@@ -69,16 +69,17 @@ namespace CaaS.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "El campo nombre es obligatorio")]
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo contraseña es obligatorio")]
         [StringLength(100, ErrorMessage = "La contraseña debe ser al menos de {2} caracteres", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "El campo confirmar contraseña es obligatorio")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden")]

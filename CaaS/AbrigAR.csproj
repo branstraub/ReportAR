@@ -242,6 +242,7 @@
     <Compile Include="Models\BModels\OngModel.cs" />
     <Compile Include="Models\BModels\ReporteModel.cs" />
     <Compile Include="Models\BVModels\ContactoViewModel.cs" />
+    <Compile Include="Models\BVModels\DashboardViewModels.cs" />
     <Compile Include="Models\BVModels\ReportesViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -344,7 +345,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Reportes\ReportesEdit.cshtml" />
-    <Content Include="Views\Admin\Reportes\ReportesView.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\CreatedLocked.cshtml" />
   </ItemGroup>

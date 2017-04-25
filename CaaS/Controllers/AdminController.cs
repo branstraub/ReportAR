@@ -30,9 +30,28 @@ namespace CaaS.Controllers
         // GET: Admin Reportes
         public ActionResult Index()
         {
-            var model = _reportesRepository.GetReportes();
+            var modelissue = _reportesRepository.GetReportes();
 
-            return model.Count() != 0 ? View(model) : View("Empty");
+            var model = new List<DashboardViewModel>();
+
+            foreach (var issue in modelissue)
+            {
+                model.Add(new DashboardViewModel
+                {
+                    Direccion = issue.Direccion,
+                    OngAsignada = _ongsRepository.GetOng(issue.OngAsignada)?.Nombre,
+                    Id = issue.Id,
+                    Latitud = issue.Latitud.ToString(),
+                    Longitud = issue.Longitud.ToString(),
+                    Desc = issue.Desc,
+                    Estado = issue.Estado.ToString(),
+                    DateReported = issue.DateReported.ToShortDateString(),
+                    Comentario = issue.Comentario
+                });
+            }
+           
+
+            return View(model);
         }
 
         // GET: Admin Reporte Detalle
