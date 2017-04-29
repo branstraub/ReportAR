@@ -35,8 +35,8 @@
                             @Html.DisplayFor(modelItem => item.Direccion)
                         </td>
                         <td>
-                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white"}) |
-                            @Html.ActionLink("Asignar", "ReporteAsignar", new { id = item.Id }, new { @style = "color:white" }) |
+                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank"}) |
+                            @Html.ActionLink("Asignar", "ReporteAsignar", new { id = item.Id }, new { @style = "color:white" }) 
                            
                         </td>
                     </tr>
@@ -81,7 +81,7 @@
                             @Html.DisplayFor(modelItem => item.Direccion)
                         </td>
                         <td>
-                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white" }) |
+                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" }) |
                             @Html.ActionLink("Comentario", "ReporteComentario", new { id = item.Id }, new { @style = "color:white" }) |
                             @Html.ActionLink("Cerrar Caso", "ReporteCerrar", new { id = item.Id }, new { @style = "color:white" }) 
                         </td>
@@ -129,7 +129,7 @@
                             @Html.DisplayFor(modelItem => item.Direccion)
                         </td>
                         <td>
-                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white" }) |
+                            @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" }) 
                        </td>
                     </tr>
                 }
