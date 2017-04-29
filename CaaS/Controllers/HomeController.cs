@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using CaaS.DataClassImplementations;
@@ -107,12 +109,14 @@ namespace CaaS.Controllers
 
         public ActionResult GetIssues(string id)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("es-ES");
             var issues = _reportesRepository.GetReportes()
                 .Where(x => x.ReportedBy == id)
                 .Select(o => new
                 {
                     o.Comentario,
-                    o.DateReported,
+                    DateReported = o.DateReported.ToLongDateString(),
+                    o.Estado,
                     o.Direccion,
                     OngAsignada = _ongsRepository.GetOng(o.OngAsignada)?.Nombre,
                  

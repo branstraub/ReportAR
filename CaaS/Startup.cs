@@ -1,4 +1,6 @@
-﻿using CaaS.Interfaces;
+﻿using System.Globalization;
+using System.Threading;
+using CaaS.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin;
 using Owin;
@@ -10,6 +12,7 @@ namespace CaaS
     {
         public void Configuration(IAppBuilder app)
         {
+           
             ConfigureAuth(app);
           
         }

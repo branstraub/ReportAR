@@ -37,7 +37,7 @@
                         <td>
                             @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white"}) |
                             @Html.ActionLink("Asignar", "ReporteAsignar", new { id = item.Id }, new { @style = "color:white" }) |
-                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id },new { @style = "color:white", onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
+                           
                         </td>
                     </tr>
                 }
@@ -82,8 +82,8 @@
                         </td>
                         <td>
                             @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white" }) |
-                            @Html.ActionLink("Cerrar Caso", "ReporteCerrar", new { id = item.Id }, new { @style = "color:white" }) |
-                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id }, new { @style = "color:white", onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
+                            @Html.ActionLink("Comentario", "ReporteComentario", new { id = item.Id }, new { @style = "color:white" }) |
+                            @Html.ActionLink("Cerrar Caso", "ReporteCerrar", new { id = item.Id }, new { @style = "color:white" }) 
                         </td>
                     </tr>
                 }
@@ -130,8 +130,7 @@
                         </td>
                         <td>
                             @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white" }) |
-                            @Html.ActionLink("Eliminar", "ReporteEliminar", new { id = item.Id }, new { @style = "color:white", onclick = "return confirm('¿Está seguro que quiere eliminar este anuncio?');" })
-                        </td>
+                       </td>
                     </tr>
                 }
 
