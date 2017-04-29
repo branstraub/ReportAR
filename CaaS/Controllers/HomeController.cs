@@ -114,7 +114,7 @@ namespace CaaS.Controllers
                     o.Comentario,
                     o.DateReported,
                     o.Direccion,
-                    OngAsignada = _ongsRepository.GetOng(o.OngAsignada).Nombre,
+                    OngAsignada = _ongsRepository.GetOng(o.OngAsignada)?.Nombre,
                  
                 });
 
