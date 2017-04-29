@@ -179,7 +179,8 @@ namespace CaaS.Controllers
                         PicUrl = urlpic,
                         Telefono = model.Telefono,
                         WebUrl = model.WebUrl,
-                        Id = Guid.NewGuid().ToString()
+                        Id = Guid.NewGuid().ToString(),
+                        Locked = true
                     });
 
                     return RedirectToAction("CreatedLocked", "Account");

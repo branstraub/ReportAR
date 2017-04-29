@@ -140,7 +140,7 @@ namespace CaaS.Controllers
 
         public ActionResult GetOngs()
         {
-            var ongs = _ongsRepository.GetOngs();
+            var ongs = _ongsRepository.GetOngs().Where(o => o.Locked == false);
 
             if (!ongs.Any())
             {

@@ -33,7 +33,7 @@ namespace CaaS.DataClassImplementations
         {
             using (var context = new ApplicationDbContext())
             {
-                var ong = context.Ongs.FirstOrDefault(x => x.Id == id);
+                var ong = context.Ongs.FirstOrDefault(x => x.Id == id && x.Locked == false);
                 return ong;
             }
         }

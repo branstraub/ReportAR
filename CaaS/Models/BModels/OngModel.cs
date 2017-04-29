@@ -14,6 +14,7 @@ namespace CaaS.Models
         public string PicUrl { get; set; }
         public string WebUrl { get; set; }
         public string Mision { get; set; }
+        public bool Locked { get; set; }
 
     }
 
