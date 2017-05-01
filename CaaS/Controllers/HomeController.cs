@@ -114,6 +114,7 @@ namespace CaaS.Controllers
                 .Where(x => x.ReportedBy == id)
                 .Select(o => new
                 {
+                    o.Id,
                     o.Comentario,
                     DateReported = o.DateReported.ToLongDateString(),
                     o.Estado,

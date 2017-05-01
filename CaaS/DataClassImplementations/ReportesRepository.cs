@@ -56,16 +56,19 @@ namespace CaaS.DataClassImplementations
             }
         }
 
-        public void AsignarOng(string reporteId, string ongId)
+        public void AsignarOng(string reporteId, string ongId, string comentario)
         {
             ReporteModel reporteEntity;
 
             using (var context = new ApplicationDbContext())
             {
                 reporteEntity = context.Reportes.FirstOrDefault(x => x.Id == reporteId);
+
             }
 
             reporteEntity.OngAsignada = ongId;
+            reporteEntity.Estado = 1;
+            reporteEntity.Comentario = comentario;
 
             using (var context = new ApplicationDbContext())
             {

@@ -57,8 +57,25 @@ namespace CaaS.Controllers
         // GET: Admin Reporte Detalle
         public ActionResult ReportesViewDetails(string id)
         {
-            return View("Reportes/ReportesViewDetails",_reportesRepository.GetReporte(id).ReporteToViewModel());
+            var model = _reportesRepository.GetReporte(id).ReporteToViewModel();
+
+            model.OngAsignada = _ongsRepository.GetOng(model.OngAsignada)?.Nombre;
+
+            return View("Reportes/ReportesViewDetails",model);
         }
+
+
+        // POST: Asignar ONG
+        [HttpPost]
+        public ActionResult ReporteAsignar(string casoid, string comentario)
+        {
+
+            var ong = _ongsRepository.GetOngs().FirstOrDefault(o => o.Nombre == User.Identity.Name);
+            _reportesRepository.AsignarOng(casoid, ong.Id, comentario);
+
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Admin Reporte Detalle Edit
         public ActionResult EditDetailsReporte(string id)
@@ -71,19 +88,6 @@ namespace CaaS.Controllers
         public ActionResult EditDetailsReporte(ReportesViewEditModel reporte)
         {
            _reportesRepository.UpdateReporte(reporte);
-            return RedirectToAction("Index");
-        }
-
-        // POST: Admin Asginar Ong a Reporte
-        [HttpPost]
-        public ActionResult AsignarOng(string id)
-        {
-            var ongid = User.Identity.GetUserId();
-            //var user = UserManager.Users.FirstOrDefault(x => x.Id == id);
-            //getuserID
-            
-
-            _reportesRepository.AsignarOng(id, ongid);
             return RedirectToAction("Index");
         }
 

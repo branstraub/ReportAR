@@ -18,7 +18,7 @@ namespace CaaS.Interfaces
 
         void UpdateReporte(ReportesViewEditModel reporte);
 
-        void AsignarOng(string reporteId, string ongId);
+        void AsignarOng(string reporteId, string ongId, string comentario);
 
         void DeleteReporte(string id);
         void CerrarReporte(string id);

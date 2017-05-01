@@ -6,22 +6,23 @@
 
 <h1 class="text-center">Ver detalles</h1>
 
+<div style="margin-top: 10px; margin-bottom: 50px;">
 
     <h2 style="margin-bottom: 10px" class="text-center">Fecha reportado</h2>
     <h3 class="text-center">@Model.DateReported</h3>
 
     <h2 style="margin-bottom: 10px" class="text-center">Descripción del reporte</h2>
     <h3 class="text-center">@Model.Desc</h3>
-    
+
     <h2 style="margin-bottom: 10px" class="text-center">Dirección</h2>
     <h3 class="text-center">@Model.Direccion</h3>
-    
+
     <h2 style="margin-bottom: 10px" class="text-center">Latitud</h2>
     <h3 class="text-center">@Model.Latitud</h3>
 
     <h2 style="margin-bottom: 10px" class="text-center">Longitud</h2>
     <h3 class="text-center">@Model.Longitud</h3>
-    
+
     <script>
         function GetMap() {
 
@@ -30,14 +31,14 @@
                 credentials: 'AvnNFjDsnWvQb6le63wIjKsNKdvu2PqntR1-vph6KkzXiAS2gj491wfkaoqinn1f',
                 center: new Microsoft.Maps.Location(@Model.Latitud.Replace(',','.'), @Model.Longitud.Replace(',', '.')),
                 mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-                zoom: 10
+                zoom: 17 //todo check zoom
             });
 
             var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), null);
             map.entities.push(pushpin);
         }
     </script>
-    
+
     <style>
         #myMap {
             position: relative;
@@ -49,23 +50,23 @@
 
     <h2 style="margin-bottom: 10px" class="text-center">Mapa</h2>
     <div id="myMap"></div>
-    
+
     <h2 style="margin-bottom: 10px" class="text-center">ONG Asignada</h2>
     <h3 class="text-center">@Model.OngAsignada</h3>
-    
+
     <h2 style="margin-bottom: 10px" class="text-center">Comentario de la ONG</h2>
     <h3 class="text-center">@Model.Comentario</h3>
-    
+
     <h2 style="margin-bottom: 10px" class="text-center">Id de caso</h2>
     <h3 class="text-center">@Model.Id</h3>
-    
+
     <h2 style="margin-bottom: 10px" class="text-center">Foto del caso</h2>
-  
+
     @{
         if (Model.UrlPic != "")
         {
 
-            <img style="max-width: 500px; margin: 30px auto; padding: 0 25%; align-items: center; width: 50%;" src="https://abrigarpics.blob.core.windows.net/issuepic/@Model.UrlPic"/>
+            <img style="max-width: 500px; margin: 30px auto; padding: 0 25%; align-items: center; width: 50%;" src="https://abrigarpics.blob.core.windows.net/issuepic/@Model.UrlPic" />
 
         }
         else
@@ -73,5 +74,6 @@
             <h3 class="text-center" style="margin-bottom: 30px">No hay una foto cargada a este caso.</h3>
         }
     }
-    
+
+</div>
   
