@@ -20,6 +20,22 @@
     width: 120px;
 }
 
+input#OngPic::after {
+    content: 'SUBIR IMAGEN';
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 5px;
+    background: #f08558;
+    padding: 8px;
+    box-sizing: border-box;
+    position: relative;
+    height: 30px;
+    width: 100%;
+    top: 0;
+    z-index: 99;
+}
+
 .text-danger {
     color: red;
 }
@@ -378,7 +394,7 @@ body {
 
 .form-field label {
   font-size: 12px;
-  color: #9a9ea7;
+  color: white;
 }
 
 .form-asignar label {

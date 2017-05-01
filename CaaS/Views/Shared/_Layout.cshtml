@@ -13,7 +13,10 @@
 <body>
 <header class="full-width main-header subtle-shadow">
     <div class="container-80 center container">
-        <img class="abrigarlogo" src="~/Content/logo.png" />
+       
+        <a href="@Request.Url.Host">
+            <img class="abrigarlogo" src="~/Content/logo_white.png" />
+        </a>
         <div class="profile-group">
             @if (User.Identity.IsAuthenticated)
             {

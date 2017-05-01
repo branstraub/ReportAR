@@ -40,7 +40,7 @@ namespace CaaS.Controllers
         [HttpPost]
         public ActionResult CreateIssue(ReporteCreateModel model)
         {
-            if (model.Descripcion == null || model.Id == null || model.Lat == null || model.Lon == null)
+            if (model.Id == null)
             {
                 return new HttpStatusCodeResult(400);
             }
@@ -67,28 +67,23 @@ namespace CaaS.Controllers
             
             var address = "";
 
-            try
+            if (model.Lat != null && model.Lon != null)
             {
 
-                var html = "";
-                var url = @"http://dev.virtualearth.net/REST/v1/Locations/{0},{1}?key=AvnNFjDsnWvQb6le63wIjKsNKdvu2PqntR1-vph6KkzXiAS2gj491wfkaoqinn1f";
-
-                url = url.Replace("{0}", model.Lat.ToString().Replace(",", ".")).Replace("{1}", model.Lon.ToString().Replace(",", "."));
-                var request = (HttpWebRequest)WebRequest.Create(url);
-               
-                using (var response = (HttpWebResponse)request.GetResponse())
-                using (var stream = response.GetResponseStream())
-                using (var reader = new StreamReader(stream))
+                try
                 {
-                    html = reader.ReadToEnd();
+                    address = GetAddress(model);
                 }
-
-                dynamic jsonDecoded = JsonConvert.DeserializeObject<dynamic>(html);
-                address = jsonDecoded.resourceSets[0].resources[0].address.formattedAddress;
+                catch (Exception e)
+                {
+                    address = "";
+                }
             }
-            catch (Exception e)
+            else
             {
                 address = "";
+                model.Lat = -0;
+                model.Lon = -0;
             }
 
             _reportesRepository.CreateReporte(new ReporteModel
@@ -105,6 +100,29 @@ namespace CaaS.Controllers
             });
 
             return new HttpStatusCodeResult(201);
+        }
+
+        private static string GetAddress(ReporteCreateModel model)
+        {
+           
+            var html = "";
+            var url =
+                @"http://dev.virtualearth.net/REST/v1/Locations/{0},{1}?key=AvnNFjDsnWvQb6le63wIjKsNKdvu2PqntR1-vph6KkzXiAS2gj491wfkaoqinn1f";
+
+            url = url.Replace("{0}", model.Lat.ToString().Replace(",", "."))
+                .Replace("{1}", model.Lon.ToString().Replace(",", "."));
+            var request = (HttpWebRequest)WebRequest.Create(url);
+
+            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                html = reader.ReadToEnd();
+            }
+
+            dynamic jsonDecoded = JsonConvert.DeserializeObject<dynamic>(html);
+            string address = jsonDecoded.resourceSets[0].resources[0].address.formattedAddress;
+            return address;
         }
 
         public ActionResult GetIssues(string id)

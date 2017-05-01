@@ -18,8 +18,8 @@
 
 </head>
 <body>
-    <img style="display: block; margin: 20px auto;" class="abrigarlogo" src="~/Content/logo.png" />
-    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = "dashboard" }, FormMethod.Post, new { @class = "login-form center subtle-borders", role = "form" }))
+    <img style="display: block; margin: 50px auto; width: 250px!important" class="abrigarlogo" src="~/Content/logo.png" />
+    @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.ReturnUrl } ,FormMethod.Post, new { @class = "login-form center subtle-borders", role = "form" }))
     {
         @Html.AntiForgeryToken()
        
