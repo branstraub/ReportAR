@@ -16,6 +16,10 @@
   text-align: center;
 }
 
+.abrigarlogo {
+    width: 120px;
+}
+
 .text-danger {
     color: red;
 }
@@ -38,8 +42,14 @@ table {
 }
 
 .tableh {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    height: 35px;
     font-size: 25px;
+    border-bottom: white solid 1px;
+}
+
+tr {
+    height: 25px;
 }
 
 /* Modal Header */

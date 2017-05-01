@@ -273,6 +273,7 @@
     <Content Include="Content\js\util.js" />
     <Content Include="Content\login.css" />
     <Content Include="Content\funsi.png" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\ms.png" />
     <Content Include="Content\site.css" />
     <Content Include="Content\reset.css" />

@@ -66,11 +66,12 @@
     <div class="text-center row">
         <h1 class="titleh1">Casos sin asignar</h1>
         @{
-            //todo distance rows
+            
             if (Model.Count(x => x.Estado == "0") != 0)
             {
 
                 <table id="table1" class="table">
+                    
                     <tr class="tableh">
                         <th>
                             @Html.DisplayNameFor(model => model.DateReported)
@@ -78,11 +79,12 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Direccion)
                         </th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
+                    <tr></tr>
 
                     @foreach (var item in Model.Where(x => x.Estado == "0"))
-                {
+                    {
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DateReported)
@@ -91,8 +93,8 @@
                                 @Html.DisplayFor(modelItem => item.Direccion)
                             </td>
                             <td>
-                                @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" }) |
-                                <a href="#" onclick="Asignarmodal('@item.Id')" style="color:white">Asignar</a>
+                                @Html.ActionLink("Detalles", "ReportesViewDetails", new {id = item.Id}, new {@style = "color:white", @target = "_blank"}) |
+                                <a href="#" onclick="Asignarmodal('@item.Id')" style="color: white">Asignar</a>
 
                             </td>
                         </tr>
@@ -124,25 +126,26 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Direccion)
                         </th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
+                    <tr></tr>
 
                     @foreach (var item in Model.Where(x => x.Estado == "1" && x.OngAsignada == User.Identity.Name))
-                {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateReported)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Direccion)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" }) |
-                                @Html.ActionLink("Comentario", "ReporteComentario", new { id = item.Id }, new { @style = "color:white" }) |
-                                @Html.ActionLink("Cerrar Caso", "ReporteCerrar", new { id = item.Id }, new { @style = "color:white" })
-                            </td>
-                        </tr>
-                    }
+                    {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateReported)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direccion)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" }) |
+                                    @Html.ActionLink("Comentario", "ReporteComentario", new { id = item.Id }, new { @style = "color:white" }) |
+                                    @Html.ActionLink("Cerrar Caso", "ReporteCerrar", new { id = item.Id }, new { @style = "color:white" })
+                                </td>
+                            </tr>
+                        }
 
                 </table>
 
@@ -172,23 +175,24 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Direccion)
                         </th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
+                    <tr></tr>
 
                     @foreach (var item in Model.Where(x => x.Estado == "2" && x.OngAsignada == User.Identity.Name))
-                {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateReported)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Direccion)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" })
-                            </td>
-                        </tr>
-                    }
+                    {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateReported)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direccion)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" })
+                                </td>
+                            </tr>
+                        }
 
                 </table>
 
