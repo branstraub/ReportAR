@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -181,9 +183,21 @@ namespace CaaS.Controllers
             return View("Index", model);
         }
 
-        //todo: send message
+            var mailMsg = new MailMessage();
+            mailMsg.To.Add(new MailAddress("t-branst@microsoft.com", "Branko Straub"));
+            mailMsg.From = new MailAddress(model.Mail, model.Name);
+            mailMsg.Subject = "AbrigAR - Contacto";
 
-        return View("Index");
+            var html = model.Message;
+
+            mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+
+            var smtpClient = new SmtpClient("smtp.sendgrid.net", Convert.ToInt32(587));
+            var credentials = new NetworkCredential("azure_247112f2851e96ce1624b2ebf88501cd@azure.com", "Nbt101296#");
+            smtpClient.Credentials = credentials;
+            smtpClient.Send(mailMsg);
+
+            return View("Index");
         }
 
 
