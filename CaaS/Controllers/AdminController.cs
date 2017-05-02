@@ -93,12 +93,12 @@ namespace CaaS.Controllers
 
         // POST: Admin Cerrar Reporte
         [HttpPost]
-        public ActionResult CerrarReporte(string id)
+        public ActionResult CerrarReporte(string casoid, string comentario)
         {
-            //chequear que el que lo sea sea el usuario que lo abrio
+            //todo chequear que el que lo sea sea el usuario que lo abrio
 
             
-            _reportesRepository.CerrarReporte(id);
+            _reportesRepository.CerrarReporte(casoid, comentario);
             return RedirectToAction("Index");
         }
 

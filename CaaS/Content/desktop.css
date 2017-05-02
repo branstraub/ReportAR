@@ -152,15 +152,15 @@ tr {
 
 /* The Close Button */
 .close {
-  color: #aaa;
+  color: white;
   float: right;
-  font-size: 28px;
+  font-size: 40px;
   font-weight: bold;
 }
 
     .close:hover,
     .close:focus {
-    color: black;
+    color: red;
     text-decoration: none;
     cursor: pointer;
     }

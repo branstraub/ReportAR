@@ -14,7 +14,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
-            <h2>Asignar Caso</h2>
+            <h1>Asignar Caso</h1>
         </div>
         @using (Html.BeginForm("ReporteAsignar", "Admin", FormMethod.Post, new { @class = "center form-asignar", role = "form", enctype = "multipart/form-data" }))
         {
@@ -23,7 +23,7 @@
                 <label class="text-center uppercase block">Comentario</label>
                 <input name="comentario" id="comentario" type="text" class="text-center form-control uppercase" />
 
-                <input name="casoid" id="casoid" type="hidden" class="form-control uppercase" />
+                <input name="casoid" id="casoidasignar" type="hidden" class="form-control uppercase" />
 
             </div>
 
@@ -36,29 +36,72 @@
     </div>
 </div>
 
-    <script>
+<div id="modalCerrar" style="display: none" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h1>Cerrar Caso</h1>
+        </div>
+        @using (Html.BeginForm("CerrarReporte", "Admin", FormMethod.Post, new { @class = "center form-asignar", role = "form", enctype = "multipart/form-data" }))
+        {
+            <div class="modal-body">
+
+                <label class="text-center uppercase block">Comentario</label>
+                <input name="comentario" id="comentario" type="text" class="text-center form-control uppercase" />
+
+                <input name="casoid" id="casoidcerrar" type="hidden" class="form-control uppercase" />
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="form-field">
+                    <button type="submit" id="sumbit" class="buttonasignar uppercase subtle-borders subtle-shadow" name="sumbit">Enviar</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
         // Get the modal
-        var modal = document.getElementById('modalAsignar');
+        var modalasignar = document.getElementById('modalAsignar');
+        var modalcerrar = document.getElementById('modalCerrar');
 
         // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+        var spana = document.getElementsByClassName("close")[0];
+        var spanc = document.getElementsByClassName("close")[1];
 
         // When the user clicks on the button, open the modal
        function Asignarmodal(id) {
-           modal.style.display = "block";
-           document.getElementById("casoid").value = id;
+           modalasignar.style.display = "block";
+           document.getElementById("casoidasignar").value = id;
         }
+
+       function Cerrarmodal(id) {
+           modalcerrar.style.display = "block";
+           document.getElementById("casoidcerrar").value = id;
+       }
            
-       
         // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
+        spana.onclick = function () {
+            modalasignar.style.display = "none";
+       }
+
+        spanc.onclick = function () {
+            modalcerrar.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            if (event.target == modalasignar) {
+                modalasignar.style.display = "none";
+            }
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modalcerrar) {
+                modalcerrar.style.display = "none";
             }
         }
     </script>
@@ -95,7 +138,6 @@
                             <td>
                                 @Html.ActionLink("Detalles", "ReportesViewDetails", new {id = item.Id}, new {@style = "color:white", @target = "_blank"}) |
                                 <a href="#" onclick="Asignarmodal('@item.Id')" style="color: white">Asignar</a>
-
                             </td>
                         </tr>
                     }
@@ -142,7 +184,7 @@
                                 <td>
                                     @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" }) |
                                     @Html.ActionLink("Comentario", "ReporteComentario", new { id = item.Id }, new { @style = "color:white" }) |
-                                    @Html.ActionLink("Cerrar Caso", "ReporteCerrar", new { id = item.Id }, new { @style = "color:white" })
+                                    <a href="#" onclick="Cerrarmodal('@item.Id')" style="color: white">Cerrar</a>
                                 </td>
                             </tr>
                         }

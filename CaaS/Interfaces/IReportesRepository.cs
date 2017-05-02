@@ -21,6 +21,6 @@ namespace CaaS.Interfaces
         void AsignarOng(string reporteId, string ongId, string comentario);
 
         void DeleteReporte(string id);
-        void CerrarReporte(string id);
+        void CerrarReporte(string id, string comentario);
     }
 }

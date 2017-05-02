@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.WebPages;
 using CaaS.Interfaces;
 using CaaS.Models;
 using CaaS.Models.BVModels;
@@ -90,7 +91,7 @@ namespace CaaS.DataClassImplementations
 
         }
 
-        public void CerrarReporte(string id)
+        public void CerrarReporte(string id, string comentario)
         {
             ReporteModel reporteEntity;
 
@@ -99,7 +100,11 @@ namespace CaaS.DataClassImplementations
                 reporteEntity = context.Reportes.FirstOrDefault(x => x.Id == id);
             }
 
-            reporteEntity.Estado = 1;
+            reporteEntity.Estado = 2;
+            if (!comentario.IsEmpty())
+            {
+                reporteEntity.Comentario = comentario;
+            }
 
             using (var context = new ApplicationDbContext())
             {
