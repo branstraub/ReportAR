@@ -57,11 +57,24 @@ namespace CaaS.Controllers
         // GET: Admin Reporte Detalle
         public ActionResult ReportesViewDetails(string id)
         {
-            var model = _reportesRepository.GetReporte(id).ReporteToViewModel();
+           
 
-            model.OngAsignada = _ongsRepository.GetOng(model.OngAsignada)?.Nombre;
+            var caso = _reportesRepository.GetReporte(id);
+          
 
-            return View("Reportes/ReportesViewDetails",model);
+
+            if (caso.Estado == 0 || _ongsRepository.GetOng(caso.OngAsignada).Nombre == User.Identity.Name)
+            {
+                var model = caso.ReporteToViewModel();
+                model.OngAsignada = _ongsRepository.GetOng(model.OngAsignada)?.Nombre;
+                return View("Reportes/ReportesViewDetails", model);
+            }
+            else
+            {
+                return View("NotOwned");
+            }
+
+           
         }
 
 
@@ -76,13 +89,6 @@ namespace CaaS.Controllers
             return RedirectToAction("Index");
         }
 
-
-        // GET: Admin Reporte Detalle Edit
-        public ActionResult EditDetailsReporte(string id)
-        {
-            return View(_reportesRepository.GetReporte(id));
-        }
-
         // POST: Admin Reporte Detalle Edit
         [HttpPost]
         public ActionResult EditDetailsReporte(ReportesViewEditModel reporte)
@@ -95,10 +101,14 @@ namespace CaaS.Controllers
         [HttpPost]
         public ActionResult CerrarReporte(string casoid, string comentario)
         {
-            //todo chequear que el que lo sea sea el usuario que lo abrio
+           
+            var caso = _reportesRepository.GetReporte(casoid);
 
-            
-            _reportesRepository.CerrarReporte(casoid, comentario);
+            if (_ongsRepository.GetOng(caso.OngAsignada).Nombre == User.Identity.Name)
+            {
+                _reportesRepository.CerrarReporte(casoid, comentario);
+            }
+
             return RedirectToAction("Index");
         }
 

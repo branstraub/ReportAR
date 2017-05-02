@@ -183,8 +183,7 @@
                                 </td>
                                 <td>
                                     @Html.ActionLink("Detalles", "ReportesViewDetails", new { id = item.Id }, new { @style = "color:white", @target = "_blank" }) |
-                                    @Html.ActionLink("Comentario", "ReporteComentario", new { id = item.Id }, new { @style = "color:white" }) |
-                                    <a href="#" onclick="Cerrarmodal('@item.Id')" style="color: white">Cerrar</a>
+                                     <a href="#" onclick="Cerrarmodal('@item.Id')" style="color: white">Cerrar</a>
                                 </td>
                             </tr>
                         }
