@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace CaaS.Controllers
 {
+
+    [Serializable]
     public class BotController : Controller
     {
         private readonly IReportesRepository _reportesRepository;
@@ -30,7 +32,7 @@ namespace CaaS.Controllers
             if (activity.Type == ActivityTypes.Message)
             {
 
-                await Conversation.SendAsync(activity, () => new RootLuisDialog());
+                await Conversation.SendAsync(activity, () => new RootLuisDialog(_reportesRepository, _ongsRepository));
             }
             else
             {

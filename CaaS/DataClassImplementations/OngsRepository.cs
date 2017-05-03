@@ -9,6 +9,8 @@ using CaaS.Models.BVModels;
 
 namespace CaaS.DataClassImplementations
 {
+
+    [Serializable]
     public class OngsRepository : IOngsRepository
     {
         public IEnumerable<OngModel> GetOngs()

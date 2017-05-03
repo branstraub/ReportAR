@@ -1,4 +1,6 @@
-﻿using CaaS.Models.BotModels;
+﻿using CaaS.DataClassImplementations;
+using CaaS.Interfaces;
+using CaaS.Models;
 
 namespace CaaS.Dialogs
 {
@@ -13,145 +15,118 @@ namespace CaaS.Dialogs
     using Microsoft.Bot.Builder.Luis.Models;
     using Microsoft.Bot.Connector;
 
-    [LuisModel("YourModelId", "YourSubscriptionKey")]
+    [Serializable]
+    [LuisModel("17c38c57-7e9b-4fbf-b1a9-ebf3ed9a07f4", "00c5c678c9e34addac0c10ecbbcd09c4")]
     public class RootLuisDialog : LuisDialog<object>
     {
-        private const string EntityGeographyCity = "builtin.geography.city";
 
-        private const string EntityHotelName = "Hotel";
+        private readonly IReportesRepository _reportesRepository;
+        private readonly IOngsRepository _ongsRepository;
 
-        private const string EntityAirportCode = "AirportCode";
+      
 
-        private IList<string> titleOptions = new List<string> { "“Very stylish, great stay, great staff”", "“good hotel awful meals”", "“Need more attention to little things”", "“Lovely small hotel ideally situated to explore the area.”", "“Positive surprise”", "“Beautiful suite and resort”" };
+        public RootLuisDialog(IReportesRepository reportesRepository, IOngsRepository ongsRepository) 
+        {
+            _ongsRepository = ongsRepository;
+            _reportesRepository = reportesRepository;
+        }
+
 
         [LuisIntent("")]
         [LuisIntent("None")]
         public async Task None(IDialogContext context, LuisResult result)
         {
-            string message = $"Sorry, I did not understand '{result.Query}'. Type 'help' if you need assistance.";
+            
+            string message = $"Perdón, no te entendí '{result.Query}'.";
 
             await context.PostAsync(message);
+            var message2 = context.MakeMessage();
+
+            var attachment = GetHeroCardHelp();
+            message2.Attachments.Add(attachment);
+
+            await context.PostAsync(message2);
 
             context.Wait(this.MessageReceived);
         }
 
-        [LuisIntent("SearchHotels")]
-        public async Task Search(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+       
+        [LuisIntent("QueOngs")]
+        public async Task QueOngs(IDialogContext context, LuisResult result)
         {
-            var message = await activity;
-            await context.PostAsync($"Welcome to the Hotels finder! We are analyzing your message: '{message.Text}'...");
+            string message = $"La Organizaciones que apoyan las campaña del frio son:";
 
-            var hotelsQuery = new CasoQuery();
+            await context.PostAsync(message);
+            var message2 = context.MakeMessage();
 
-            EntityRecommendation cityEntityRecommendation;
 
-            if (result.TryFindEntity(EntityGeographyCity, out cityEntityRecommendation))
-            {
-                cityEntityRecommendation.Type = "Destination";
-            }
+            var reply = context.MakeMessage();
 
-            //var hotelsFormDialog = new FormDialog<CasoQuery>(hotelsQuery, this.BuildHotelsForm, FormOptions.PromptInStart, result.Entities);
+            reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+            reply.Attachments = GetHeroCardOngs(_ongsRepository.GetOngs());
 
-            //context.Call(hotelsFormDialog, this.ResumeAfterHotelsFormDialog);
+            await context.PostAsync(reply);
+
+            context.Wait(this.MessageReceived);
         }
 
-        [LuisIntent("ShowHotelsReviews")]
-        public async Task Reviews(IDialogContext context, LuisResult result)
-        {
-            EntityRecommendation hotelEntityRecommendation;
-
-            if (result.TryFindEntity(EntityHotelName, out hotelEntityRecommendation))
+        private static Attachment GetHeroCardHelp()
             {
-                await context.PostAsync($"Looking for reviews of '{hotelEntityRecommendation.Entity}'...");
-
-                var resultMessage = context.MakeMessage();
-                resultMessage.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-                resultMessage.Attachments = new List<Attachment>();
-
-                for (int i = 0; i < 5; i++)
+            var heroCard = new HeroCard
+            {
+                Title = "Acciones disponibles",
+                Subtitle = "Elije una de las opciones debajo",
+                //Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                Buttons = new List<CardAction>
                 {
-                    var random = new Random(i);
-                    ThumbnailCard thumbnailCard = new ThumbnailCard()
-                    {
-                        Title = this.titleOptions[random.Next(0, this.titleOptions.Count - 1)],
-                        Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio magna, sodales vel ligula sit amet, vulputate vehicula velit. Nulla quis consectetur neque, sed commodo metus.",
-                        Images = new List<CardImage>()
-                        {
-                            new CardImage() { Url = "https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif" }
-                        },
-                    };
+                    new CardAction(ActionTypes.PostBack, "Quiero reportar un caso", value: "Quiero reportar un caso") ,
+                    new CardAction(ActionTypes.PostBack, "¿Qué organizaciones participan?", value: "¿Qué organizaciones participan?") ,
+                    new CardAction(ActionTypes.PostBack, "¿Qué es la campaña del frio?", value: "¿Qué es la campaña del frio?") ,
 
-                    resultMessage.Attachments.Add(thumbnailCard.ToAttachment());
                 }
+            };
 
-                await context.PostAsync(resultMessage);
+            return heroCard.ToAttachment();
+        }
+
+        private static List<Attachment> GetHeroCardOngs(IEnumerable<OngModel> ongs)
+        {
+
+            var listCards = new List<Attachment>();
+           
+            foreach (var ong in ongs)
+            {
+                listCards.Add(new HeroCard
+                    {
+                    Title = ong.Nombre,
+                    Subtitle = $"Misión: {ong.Mision}",
+                    Text = $"Telefono: {ong.Telefono}",
+                   
+                    Buttons = new List<CardAction>()
+                        {
+                            new CardAction()
+                            {
+                                Title = "Más Información",
+                                Type = ActionTypes.OpenUrl,
+                                Value = ong.WebUrl
+                            },
+                            new CardAction()
+                            {
+                                Title = "Enviar Mail",
+                                Type = ActionTypes.OpenUrl,
+                                Value = "mailto:"+ong.Mail
+                            }
+                        }
+                }.ToAttachment()
+            );
             }
 
-            context.Wait(this.MessageReceived);
+
+          return listCards;
+
         }
 
 
-        //private async Task ResumeAfterHotelsFormDialog(IDialogContext context, IAwaitable<CasoQuery> result)
-        //{
-        //    try
-        //    {
-        //        var searchQuery = await result;
 
-        //        var hotels = await this.GetHotelsAsync(searchQuery);
-
-        //        await context.PostAsync($"I found {hotels.Count()} hotels:");
-
-        //        var resultMessage = context.MakeMessage();
-        //        resultMessage.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-        //        resultMessage.Attachments = new List<Attachment>();
-
-        //        foreach (var hotel in hotels)
-        //        {
-        //            HeroCard heroCard = new HeroCard()
-        //            {
-        //                Title = hotel.Name,
-        //                Subtitle = $"{hotel.Rating} starts. {hotel.NumberOfReviews} reviews. From ${hotel.PriceStarting} per night.",
-        //                Images = new List<CardImage>()
-        //                {
-        //                    new CardImage() { Url = hotel.Image }
-        //                },
-        //                Buttons = new List<CardAction>()
-        //                {
-        //                    new CardAction()
-        //                    {
-        //                        Title = "More details",
-        //                        Type = ActionTypes.OpenUrl,
-        //                        Value = $"https://www.bing.com/search?q=hotels+in+" + HttpUtility.UrlEncode(hotel.Location)
-        //                    }
-        //                }
-        //            };
-
-        //            resultMessage.Attachments.Add(heroCard.ToAttachment());
-        //        }
-
-        //        await context.PostAsync(resultMessage);
-        //    }
-        //    catch (FormCanceledException ex)
-        //    {
-        //        string reply;
-
-        //        if (ex.InnerException == null)
-        //        {
-        //            reply = "You have canceled the operation.";
-        //        }
-        //        else
-        //        {
-        //            reply = $"Oops! Something went wrong :( Technical Details: {ex.InnerException.Message}";
-        //        }
-
-        //        await context.PostAsync(reply);
-        //    }
-        //    finally
-        //    {
-        //        context.Done<object>(null);
-        //    }
-        //}
-
-      
     }
 }

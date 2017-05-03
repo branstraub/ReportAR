@@ -10,6 +10,7 @@ using CaaS.Models.BVModels;
 
 namespace CaaS.DataClassImplementations
 {
+    [Serializable]
     public class ReportesRepository : IReportesRepository
     {
         public IEnumerable<ReporteModel> GetReportes()
